@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/darker_gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pager"
+        android:background="@android:color/holo_blue_dark" />
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:id="@+id/dots"
+        android:layout_above="@+id/navigation"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/dot1"
+            android:layout_height="10dp"
+            android:src="@drawable/dotfill"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:id="@+id/dot2"
+            android:src="@drawable/dothalf"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/dot3"
+            android:src="@drawable/dothalf"
+            android:layout_height="10dp"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/navigation">
+
+        <Button
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Skip"
+            android:textColor="@android:color/white"
+            android:id="@+id/skip"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:text="Next"
+            android:textColor="@android:color/white"
+            android:id="@+id/next"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
