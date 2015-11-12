@@ -29,16 +29,30 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/btSearch"
-        android:layout_alignBottom="@+id/view"
+        android:onClick="onButtonClick"
+        android:layout_below="@+id/searchWord"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="49dp"
-        android:onClick="onButtonClick" />
+        android:background="#2d3fdf" />
+
+
 
     <EditText
+
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:id="@+id/searchWord"
+        android:singleLine="true"
+    android:inputType="textCapWords"
+        android:text=""
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_centerVertical="true"
+        android:id="@+id/imageView"
+        android:background="@drawable/conscience_icon"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
 
