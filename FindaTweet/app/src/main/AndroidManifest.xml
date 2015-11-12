@@ -21,13 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity
             android:name=".Onboarding"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_onboarding" >
+            android:label="@string/title_activity_onboarding"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SearchResultsActivity"
+            android:label="@string/title_activity_search_results"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

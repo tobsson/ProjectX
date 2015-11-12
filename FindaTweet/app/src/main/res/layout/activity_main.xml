@@ -6,35 +6,16 @@
 
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/searchLayoutHolder"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-
-        >
-
-
-
-    </FrameLayout>
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/searchLayoutHolder"
-        >
+        android:id="@+id/view"
+        android:background="@android:color/holo_blue_dark">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_scrollFlags="scroll|enterAlways"/>
 
 
         </android.support.design.widget.AppBarLayout>
@@ -43,6 +24,22 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/btSearch"
+        android:layout_alignBottom="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp"
+        android:onClick="onButtonClick" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
