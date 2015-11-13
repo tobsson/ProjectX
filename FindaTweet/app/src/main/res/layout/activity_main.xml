@@ -44,7 +44,8 @@
         android:id="@+id/imageView"
         android:background="@drawable/good_vs_bad"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/btSearch"
+        android:layout_alignEnd="@+id/btSearch" />
 
     <ImageButton
         android:layout_width="wrap_content"
