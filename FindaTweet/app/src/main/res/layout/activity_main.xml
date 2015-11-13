@@ -24,17 +24,6 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/btSearch"
-        android:onClick="onButtonClick"
-        android:layout_below="@+id/searchWord"
-        android:layout_centerHorizontal="true"
-        android:background="#2d3fdf" />
-
-
 
     <EditText
 
@@ -44,16 +33,28 @@
         android:singleLine="true"
     android:inputType="textCapWords"
         android:text=""
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/btSearch" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:background="@drawable/conscience_icon"
+        android:background="@drawable/good_vs_bad"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btSearch"
+        android:background="@drawable/search67"
+        android:onClick="onButtonClick"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

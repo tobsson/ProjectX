@@ -26,30 +26,22 @@
 
         android:layout_marginTop="20dp"
         android:text="Use #hashtag"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search for a phrase"
+        android:text="and press"
         android:textColor="@android:color/white"
 
         android:textSize="19sp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="30dp"/>
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
+        android:id="@+id/imageView3"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/search67" />
 
-        android:layout_marginTop="20dp"
-        android:text="Use phrase For General"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-
-        android:layout_marginTop="20dp"
-        android:text='Use "phrase" For Specific '/>
 
 </LinearLayout>
