@@ -1,0 +1,9 @@
+%% -*- erlang -*-
+{application, mochix,
+ [{description, "mochix"},
+  {vsn, "0.1"},
+  {modules, []},
+  {registered, []},
+  {mod, {'mochix_app', []}},
+  {env, []},
+  {applications, [kernel, stdlib, crypto]}]}.
