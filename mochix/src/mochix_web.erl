@@ -31,7 +31,7 @@ loop(Req, DocRoot) ->
                     "Hello world!\n"});
                   % Takes all requests to /findtweets and sends them to
                   % a function.
-                  % .../findtweet?query=hockey
+                  % .../findtweets?query=hockey
                   "findtweets" -> spawn(fun () -> findtweets(Req) end);
                   _ ->
                     Req:respond({200, [{"Content-Type", "text/plain"}],

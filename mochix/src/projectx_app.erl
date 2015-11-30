@@ -35,6 +35,7 @@ loop() ->
      loop();
     {extracted_list, P, Value} ->
       spawn(fun () -> extract_text(P, Value, []) end),
+      spawn(fun () -> extract_text_mapreduce(P, Value, []) end),
       %io:format("loop spawned extract_text~n"),
        loop();
     {extracted_data, P, X} ->
@@ -44,7 +45,7 @@ loop() ->
     end.
 
 % This function takes a query and runs it through our filters then returns
-% whatever 
+% whatever
 tweet_search(Query) ->
   tweet ! {tweet_search, self(), Query},
   receive
@@ -53,6 +54,20 @@ tweet_search(Query) ->
 
     end.
 
+% This function takes a list of strings, separates each word to a single term
+% and then maps them like {"word", 1}
+% Returns a proplist with the words reduced
+map(List) ->
+  % Splits a string into a comma separated list
+  X = re:split(List,"[ ]",[{return,list}]),
+  Map = [{string:to_lower(W), 1}|| W <- X],
+  Result = dict:to_list(lists:foldl(fun reduce/2, dict:new(), Map)),
+  io:format("map Result: ~p~n", [Result]).
+
+% Sums the values of a map
+reduce({Key, Value}, Sums) ->
+  % Key, Fun, Initial Value, Dictionary
+  dict:update(Key, fun (Old) -> Old + Value end, Value, Sums).
 
 % This function will take the value of 'Query' and perform a search on
 % twitter, returns JSONobjects as they come from Twitter servers
@@ -103,6 +118,16 @@ extract_text(P, Value, Data) ->
   {_TKey, TValue} = lists:keyfind(<<"text">>, 1, Head),
   %io:format("Text: ~p~n", [TValue]),
   extract_text(P, tl(Value), Data ++ [Name] ++ [TValue]). % loop
+
+% Extracts only the fields with "text" from JSON.
+% Data is a proplist
+extract_text_mapreduce(_P, [], Data) -> map(Data);
+extract_text_mapreduce(P, Value, Data) ->
+  % Extracts first tuple from the list Value 
+  {Head} = hd(Value),
+  {_Key, Text} = lists:keyfind(<<"text">>, 1, Head),
+  %io:format("Text: ~p~n", [TValue]),
+  extract_text_mapreduce(P, tl(Value), Data ++ [Text]). % loop
 
 % This function returns a Bearer Token from Twitter
 % that's needed for Application Authentication
