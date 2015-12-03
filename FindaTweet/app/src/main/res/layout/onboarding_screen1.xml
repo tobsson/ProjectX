@@ -3,27 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@android:color/holo_blue_dark"
+    android:background="#2e81b5"
     android:gravity="center_vertical|center_horizontal"
     android:weightSum="1">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/good_vs_bad" />
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:layout_width="341dp"
+        android:layout_height="111dp"
+        android:text="       group X"
         android:textSize="48sp"
         android:textColor="@android:color/white"
 
         android:layout_marginTop="50dp"
-        android:elegantTextHeight="false" />
+        android:elegantTextHeight="false"
+        android:textStyle="bold" />
 
 
 

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:weightSum="1"
     android:onClick="onButtonClick"
-    android:background="#2e81b5">
+    android:background="@drawable/wallpaper_8547">
 
 
     <ImageButton
