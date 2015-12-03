@@ -3,7 +3,7 @@
 -behaviour(application).
 
 %% Application callbacks
--export([start/2, stop/1, init/0, tweet_search/1]).
+-export([start/2, stop/1, init/0, tweet_search/1, test_post/1]).
 
 %% ===================================================================
 %% Application callbacks
@@ -15,7 +15,7 @@ start(_StartType, _StartArgs) ->
 stop(_State) ->
     ok.
 % Start the application
-% erl -pa deps/*/ebin -pa ebin -s crypto -s ssl
+% erl -pa deps/*/ebin -pa ebin -s crypto
 % projectx_app:init()
 init() ->
   ssl:start(),
@@ -123,7 +123,7 @@ extract_text(P, Value, Data) ->
 % Data is a proplist
 extract_text_mapreduce(_P, [], Data) -> map(Data);
 extract_text_mapreduce(P, Value, Data) ->
-  % Extracts first tuple from the list Value 
+  % Extracts first tuple from the list Value
   {Head} = hd(Value),
   {_Key, Text} = lists:keyfind(<<"text">>, 1, Head),
   %io:format("Text: ~p~n", [TValue]),
@@ -160,3 +160,17 @@ app_auth() ->
   {_,BearerToken}   = lists:keyfind(<<"access_token">>, 1, TokenDecoded),
   BearerTokenString = binary:bin_to_list(BearerToken),
   BearerTokenString.
+
+test_post(Query) ->
+  % Start ibrowse which we use for our network connections.
+  ibrowse:start(),
+
+  _URIQuery = http_uri:encode(Query),
+
+  % Construct the HTTP request with authentication and search parameters
+  Header = [{"Content-Type", "application/x-www-form-urlencoded"}],
+  Body = "query=hockey",
+  URL = "http://localhost:8080/findtweets",
+
+  % Request sent to Twitter
+  ibrowse:send_req(URL, Header, post, Body).

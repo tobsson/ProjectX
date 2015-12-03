@@ -32,15 +32,17 @@ loop(Req, DocRoot) ->
                   % Takes all requests to /findtweets and sends them to
                   % a function.
                   % .../findtweets?query=hockey
-                  "findtweets" -> spawn(fun () -> findtweets(Req) end);
+                  "findtweets" -> spawn(fun () -> findget(Req) end);
                   _ ->
                     Req:respond({200, [{"Content-Type", "text/plain"}],
                     "You are doing it wrong!\n"})
                 end;
             'POST' ->
                 case Path of
+                  "findtweets" -> spawn(fun () -> findpost(Req) end);
                     _ ->
-                        Req:not_found()
+                      Req:respond({200, [{"Content-Type", "text/plain"}],
+                      "You are doing it wrong!\n"})
                 end;
             _ ->
                 Req:respond({501, [], []})
@@ -61,12 +63,24 @@ get_option(Option, Options) ->
     {proplists:get_value(Option, Options), proplists:delete(Option, Options)}.
 
 % Takes a query from an HTTP request and gives back an answer encoded as JSON
-findtweets(Req) ->
+findget(Req) ->
   QueryStringData = Req:parse_qs(),
-  Query = proplists:get_value("query", QueryStringData),
-  Search = projectx_app:tweet_search(Query),
-  HTMLoutput = mochijson2:encode(Search),
+  Query           = proplists:get_value("query", QueryStringData),
+  Search          = projectx_app:tweet_search(Query),
+  HTMLoutput      = mochijson2:encode(Search),
   %io:format("loop founddata: ~p~n", [FoundData]),
+  Req:respond({200, [{"Content-Type", "text/plain"}],
+                HTMLoutput}).
+
+findpost(Req) ->
+  io:format("findpost started ~n"),
+  io:format("findpost Req: ~p~n", [Req]),
+  PostData  = Req:parse_post(),
+  io:format("findpost postData: ~p~n", [PostData]),
+  Query     = proplists:get_value("query", PostData),
+  io:format("findpost query: ~p~n", [Query]),
+  Search    = projectx_app:tweet_search(Query),
+  HTMLoutput      = mochijson2:encode(Search),
   Req:respond({200, [{"Content-Type", "text/plain"}],
                 HTMLoutput}).
 
