@@ -1,0 +1,12 @@
+{application, tweet,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib, couchbeam
+                 ]},
+  {mod, { tweet_app, []}},
+  {env, []}
+ ]}.
