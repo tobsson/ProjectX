@@ -1,6 +1,7 @@
 package com.example.andrius.findatweet;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,7 +9,9 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ public class ResultsActivity extends FragmentActivity {
     //private TextView tvX, tvY;
     private float[] yData = { 45, 20, 35 };
     private String[] xData = { "Positive", "Neutral", "Negative" };
+    private Button chartBtn;
 
     private Typeface tf;
 
@@ -54,7 +58,6 @@ public class ResultsActivity extends FragmentActivity {
 
         // mSeekBarX.setOnSeekBarChangeListener(this);
         // mSeekBarY.setOnSeekBarChangeListener(this);
-
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
         mChart.setDescription("");
@@ -96,6 +99,30 @@ public class ResultsActivity extends FragmentActivity {
         l.setPosition(LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
+
+        /*chartBtn.findViewById(R.id.timelineBtn);
+        View.OnClickListener buttonListener = new View.OnClickListener() {
+            boolean clicked = false;
+
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (ResultsActivity.this, DetailedStatistics.class);
+                startActivity(i);
+
+            }
+        };
+        chartBtn.setOnClickListener(buttonListener);*/
+
+    }
+
+    public void onButtonClick(View v) {
+        //open SearchResultsActivity when search button is clicked
+
+        if (v.getId() == R.id.timelineBtn) {
+            Intent i = new Intent(ResultsActivity.this, DetailedStatistics.class);
+            startActivity(i);
+        }
     }
 
 

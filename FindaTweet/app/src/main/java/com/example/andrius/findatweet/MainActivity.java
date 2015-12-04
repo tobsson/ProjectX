@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //open SearchResultsActivity when search button is clicked
 
         if (v.getId() == R.id.btSearch){
-            Intent i = new Intent (MainActivity.this, SearchResultsActivity.class);
+            Intent i = new Intent (MainActivity.this, ResultsActivity.class);
             startActivity(i);
         }
     }

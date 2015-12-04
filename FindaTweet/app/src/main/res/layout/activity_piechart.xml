@@ -42,4 +42,16 @@
         android:layout_alignRight="@+id/button"
         android:layout_alignEnd="@+id/button" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Timeline"
+        android:id="@+id/timelineBtn"
+        android:layout_above="@+id/button3"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
 </RelativeLayout>
