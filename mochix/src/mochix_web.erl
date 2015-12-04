@@ -30,8 +30,8 @@ loop(Req, DocRoot) ->
                     Req:respond({200, [{"Content-Type", "text/plain"}],
                     "Hello world!\n"});
                   % Takes all requests to /findtweets and sends them to
-                  % a function.
-                  % .../findtweets?query=hockey
+                  % a function. Search for jobs in the Gothenburg area
+                  % .../findtweets?query=jobs&loc=57.726120,11.942240,10km
                   "findtweets" -> spawn(fun () -> findget(Req) end);
                   _ ->
                     Req:respond({200, [{"Content-Type", "text/plain"}],
@@ -66,7 +66,10 @@ get_option(Option, Options) ->
 findget(Req) ->
   QueryStringData = Req:parse_qs(),
   Query           = proplists:get_value("query", QueryStringData),
-  Search          = projectx_app:tweet_search(Query),
+  io:format("findget Query: ~p~n", [Query]),
+  Location        = proplists:get_value("loc", QueryStringData),
+  io:format("findget Location: ~p~n", [Location]),
+  Search          = projectx_app:get_tweets(Query, Location),
   HTMLoutput      = mochijson2:encode(Search),
   %io:format("loop founddata: ~p~n", [FoundData]),
   Req:respond({200, [{"Content-Type", "text/plain"}],

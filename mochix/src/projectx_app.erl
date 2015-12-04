@@ -3,7 +3,7 @@
 -behaviour(application).
 
 %% Application callbacks
--export([start/2, stop/1, init/0, tweet_search/1, test_post/1]).
+-export([start/2, stop/1, init/0, get_tweets/2, test_post/1]).
 
 %% ===================================================================
 %% Application callbacks
@@ -25,10 +25,6 @@ init() ->
 loop() ->
   %io:format("loop started ~n"),
   receive
-    {tweet_search, P, Q} ->
-      spawn(fun () -> get_tweets(P, Q) end),
-      %io:format("loop spawned get_tweets ~n"),
-      loop();
     {get_tweets_reply, P, A} ->
       spawn(fun () -> jiffy_decode(P, A) end),
       %io:format("loop spawned jiffy_decode ~n"),
@@ -44,16 +40,6 @@ loop() ->
 
     end.
 
-% This function takes a query and runs it through our filters then returns
-% whatever
-tweet_search(Query) ->
-  tweet ! {tweet_search, self(), Query},
-  receive
-    {extracted_list_complete, X} ->
-      X
-
-    end.
-
 % This function takes a list of strings, separates each word to a single term
 % and then maps them like {"word", 1}
 % Returns a proplist with the words reduced
@@ -62,7 +48,8 @@ map(List) ->
   X = re:split(List,"[ ]",[{return,list}]),
   Map = [{string:to_lower(W), 1}|| W <- X],
   Result = dict:to_list(lists:foldl(fun reduce/2, dict:new(), Map)),
-  io:format("map Result: ~p~n", [Result]).
+  %io:format("map Result: ~p~n", [Result]),
+  ok.
 
 % Sums the values of a map
 reduce({Key, Value}, Sums) ->
@@ -71,29 +58,35 @@ reduce({Key, Value}, Sums) ->
 
 % This function will take the value of 'Query' and perform a search on
 % twitter, returns JSONobjects as they come from Twitter servers
-get_tweets(P, Query) ->
+get_tweets(Query, Location) ->
   % Start ibrowse which we use for our network connections.
   ibrowse:start(),
-
   % Get Bearer token from twitter which we need for Application Auth
   BearerToken = app_auth(),
-  %io:format("get_ tweets: BearerToken: ~p~n", [BearerToken]),
-
-  URIQuery = http_uri:encode(Query),
-
   % Construct the HTTP request with authentication and search parameters
   HeaderAuth = [{"Authorization","Bearer " ++ BearerToken}],
-  URL = string:concat(string:concat(
-          "https://api.twitter.com/1.1/search/tweets.json?q=",URIQuery),
-            "&count=15&lang=en"),
-
+  URL = url_creator(Query, Location),
   % Request sent to Twitter
   {ok,_,_,TweetData} = ibrowse:send_req(URL, HeaderAuth, get),
-  %io:format("get_tweets Returns: ~p~n", [TweetData]),
-
   % Send answer to the server
-  tweet ! {get_tweets_reply, P, TweetData}.
+  tweet ! {get_tweets_reply, self(), TweetData},
+  % Wait for an answer that has gone through the entire process
+  receive
+    {extracted_list_complete, X} ->
+      X
+  end.
 
+url_creator(Query, undefined) ->
+  URIQuery  = http_uri:encode(Query),
+  string:concat(string:concat(
+          "https://api.twitter.com/1.1/search/tweets.json?q=",URIQuery),
+            "&count=15&lang=en&result_type=recent");
+url_creator(Query, Location) ->
+  URIQuery  = http_uri:encode(Query),
+  io:format("url_creator Location: ~p~n", [Location]),
+  string:concat(string:concat(string:concat(
+          "https://api.twitter.com/1.1/search/tweets.json?q=",URIQuery),
+            "&count=15&lang=en&result_type=recent&geocode="), Location).
 
 % Takes a JSON object and makes it more readable.
 jiffy_decode(P, A) ->
