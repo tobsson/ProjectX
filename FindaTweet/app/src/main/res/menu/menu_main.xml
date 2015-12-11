@@ -1,10 +1,62 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+
+
+
+
+
+
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
     <item android:id="@+id/action_about" android:title="@string/action_about"
         android:orderInCategory="100" app:showAsAction="never" />
+
+
+
+
+
+    <item
+        android:icon="@drawable/globe_white"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/Sweden"
+                android:icon="@drawable/sweden"
+                android:title="Sweden" />
+            <item
+                android:id="@+id/Norway"
+                android:icon="@drawable/norway"
+                android:title="Norway" />
+            <item
+                android:id="@+id/France"
+                android:icon="@drawable/france"
+                android:title="France" />
+            <item
+                android:id="@+id/Germany"
+                android:icon="@drawable/germany"
+                android:title="Germany" />
+            <item
+                android:id="@+id/Russia"
+                android:icon="@drawable/russia"
+                android:title="Russia" />
+            <item
+                android:id="@+id/Finland"
+                android:icon="@drawable/finland"
+                android:title="Finland" />
+            <item
+                android:id="@+id/USA"
+                android:icon="@drawable/usa"
+                android:title="USA" />
+            <item
+                android:id="@+id/Brasil"
+                android:icon="@drawable/brazil"
+                android:title="Brasil" />
+        </menu>
+    </item>
+
+
 
 </menu>

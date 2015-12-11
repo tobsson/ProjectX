@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteCursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -22,21 +23,15 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
     public Button button;
     private SuggestionsDatabase database;
     private SearchView searchView;
-
-
-
-
-
-
-
     private SharedPreferences preferences;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         database = new SuggestionsDatabase(this);
         searchView = (SearchView) findViewById(R.id.searchView1);
@@ -45,13 +40,6 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
         AutoCompleteTextView search_text = (AutoCompleteTextView) searchView.findViewById(searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
         search_text.setThreshold(1);
-
-
-
-
-
-
-
 
 
 
@@ -70,15 +58,15 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         }
     }
 
+            @Override
+            public boolean onCreateOptionsMenu(Menu menu) {
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.menu_main, menu);
+                return true;
+
+            }
 
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-
-            return true;
-        }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
@@ -86,17 +74,14 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             // automatically handle clicks on the Home/Up button, so long
             // as you specify a parent activity in AndroidManifest.xml.
 
-            int id = item.getItemId();
 
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            }
+           // int id = item.getItemId();
+           // if (id == R.id.action_location) {
+               // startActivity(new Intent(getApplicationContext(),SearchResultsActivity.class));
+                //return true;
+           // }
             return super.onOptionsItemSelected(item);
         }
-
-
-
 
             @Override
             public boolean onSuggestionSelect(int position) {
@@ -142,12 +127,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                     return false;
                 }
             }
-
-
-
-
-
-        public void onButtonClick(View v){
+            public void onButtonClick(View v){
         //open SearchResultsActivity when search button is clicked
 
         if (v.getId() == R.id.btSearch){
