@@ -23,22 +23,30 @@ init() ->
   tweet_search().
 
 loop() ->
-  %io:format("loop started ~n"),
+  io:format("loop started ~n"),
   receive
     {tweet_search, Q} ->
       spawn(fun () -> get_tweets(Q) end),
-      %io:format("loop spawned get_tweets ~n"),
+      io:format("loop spawned get_tweets ~n"),
       loop();
     {get_tweets_reply, A} ->
       spawn(fun () -> jiffy_decode(A) end),
-      %io:format("loop spawned jiffy_decode ~n"),
-      loop();
-    {jiffy_decode_reply, A} ->
-      %spawn(fun () -> extract_info(A) end),
-      %io:format("loop spawned extract_info~n"),
-      io:format("~p~n", [A]),
-      loop()
-  end.
+      io:format("loop spawned jiffy_decode ~n"),
+     loop();
+  %  {jiffy_decode_reply, TweetDataDecoded} ->
+  %    spawn(fun () -> extract_info(TweetDataDecoded) end),
+  %    io:format("loop spawned extract_info~n"),
+  %    loop();
+    {extracted_list, Value} ->
+      spawn(fun () -> extract_text(Value) end),
+      io:format("loop spawned extract_text~n"),
+  %     loop();
+  %    {extracted_list2, M2} ->
+  %      spawn(fun () -> extract_text2(M2) end),
+  %      io:format("loop spawned extract_text2~n"),
+       loop()
+
+    end.
 
 % This function is for testing search queries in the terminal
 tweet_search() ->
@@ -86,10 +94,25 @@ get_tweets(Query) ->
 
 % Takes a JSON object and makes it more readable.
 jiffy_decode(A) ->
-  {TweetDataDecoded} = jiffy:decode(A),
+  TweetDataDecoded = jiffy:decode(A),
+  {TDD} = TweetDataDecoded, % extracts list from first tuple
+  {_Key, Value} = lists:keyfind(<<"statuses">>, 1, TDD), % extracts the only tuple "statuses" from list
 
-  tweet ! {jiffy_decode_reply, TweetDataDecoded}.
 
+  tweet! {extracted_list, Value}.
+
+
+% Extracts necessary values from JSON.
+extract_text([]) -> ok;
+extract_text(Value) ->
+  {Head} = hd(Value), % extracts first tuple from list Value and extracts list from this tuple
+  {_TKey1, TValue1} = lists:keyfind(<<"user">>, 1, Head), % extracts tuple "text" from list TLMet
+  {TText} = TValue1,
+  {_NKey, Name} = lists:keyfind(<<"name">>, 1, TText),
+  io:format("User name: ~p~n", [Name]),
+  {_TKey, TValue} = lists:keyfind(<<"text">>, 1, Head),
+  io:format("Text: ~p~n", [TValue]),
+  extract_text(tl(Value)). % loop
 
 % This function returns a Bearer Token from Twitter
 % that's needed for Application Authentication
