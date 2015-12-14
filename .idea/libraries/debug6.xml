@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="debug6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Suggestions/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-ecd09f3c8df3bb2e4b5b178d80612a597509b48a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Suggestions/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-37048afc9d613da151c2f8248fc1ac82bb5fd09e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Suggestions/app/build/intermediates/pre-dexed/debug/classes-8d87047f9b53da1c314c43b6d2125baa2b8e84df.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Suggestions/app/build/intermediates/pre-dexed/debug/classes-ea939ea56fb3adad99e60219fae21e51eb3e14aa.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Suggestions/app/build/intermediates/pre-dexed/debug/classes-4b651318b9731760fc1c2ad64e9c29f93cc95047.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Suggestions/app/build/intermediates/pre-dexed/debug/classes-55181e2e624311be44643692c753440ed0171f3d.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
