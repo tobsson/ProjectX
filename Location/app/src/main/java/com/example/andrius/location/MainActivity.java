@@ -10,16 +10,16 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class AndroidFromLocation extends Activity {
+public class MainActivity extends Activity {
 
-    double LATITUDE = 37.42233;
-    double LONGITUDE = -122.083;
+    double LATITUDE = 57.7000;
+    double LONGITUDE = 11.9667;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         TextView myLatitude = (TextView)findViewById(R.id.mylatitude);
         TextView myLongitude = (TextView)findViewById(R.id.mylongitude);
         TextView myAddress = (TextView)findViewById(R.id.myaddress);

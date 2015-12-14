@@ -54,10 +54,6 @@
                 android:id="@+id/Brasil"
                 android:icon="@drawable/brazil"
                 android:title="Brasil" />
-            <item
-                android:id="@+id/Brasill"
-                android:icon="@drawable/brazil"
-                android:title="Brasil" />
         </menu>
     </item>
 
