@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
-        android:layout_above="@+id/button3" />
+        android:layout_above="@+id/tweetsView" />
 
 
     <EditText
@@ -46,12 +46,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Timeline"
-        android:id="@+id/timelineBtn"
+        android:id="@+id/chartBtn"
         android:layout_above="@+id/button3"
         android:layout_alignRight="@+id/button"
         android:layout_alignEnd="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tweetsView"
+        android:layout_above="@+id/chartBtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Nick: I hate cats. George: I love cats. Maria: Cats" />
 
 
 </RelativeLayout>

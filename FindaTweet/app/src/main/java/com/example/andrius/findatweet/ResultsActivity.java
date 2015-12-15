@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -46,7 +47,9 @@ public class ResultsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_piechart);
+
 
         //tvX = (TextView) findViewById(R.id.tvXMax);
         //tvY = (TextView) findViewById(R.id.tvYMax);
@@ -58,6 +61,7 @@ public class ResultsActivity extends FragmentActivity {
 
         // mSeekBarX.setOnSeekBarChangeListener(this);
         // mSeekBarY.setOnSeekBarChangeListener(this);
+        chartBtn = (Button) findViewById(R.id.chartBtn);
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
         mChart.setDescription("");
@@ -100,7 +104,7 @@ public class ResultsActivity extends FragmentActivity {
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
 
-        /*chartBtn.findViewById(R.id.timelineBtn);
+
         View.OnClickListener buttonListener = new View.OnClickListener() {
             boolean clicked = false;
 
@@ -112,18 +116,20 @@ public class ResultsActivity extends FragmentActivity {
 
             }
         };
-        chartBtn.setOnClickListener(buttonListener);*/
+        chartBtn.setOnClickListener(buttonListener);
 
     }
 
-    public void onButtonClick(View v) {
+    /*public void onButtonClick(View v) {
         //open SearchResultsActivity when search button is clicked
 
         if (v.getId() == R.id.timelineBtn) {
             Intent i = new Intent(ResultsActivity.this, DetailedStatistics.class);
             startActivity(i);
         }
-    }
+    }*/
+
+
 
 
 
