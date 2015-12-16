@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="group X"
+        android:text="ask a bird"
         android:id="@+id/textView2"
         android:layout_above="@+id/searchView1"
         android:layout_centerHorizontal="true"
@@ -55,5 +55,17 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/abc_alert_dialog_button_bar_height"
         android:textStyle="bold" />
+
+
+    <ExpandableListView android:id="@+id/expandableList"
+
+        android:groupIndicator="@drawable/sweden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/btSearch"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/searchView1"
+        android:layout_toRightOf="@+id/btSearch" />
+
 
 </RelativeLayout>
