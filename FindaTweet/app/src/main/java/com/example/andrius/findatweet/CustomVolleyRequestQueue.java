@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -40,17 +41,22 @@ public class CustomVolleyRequestQueue {
     public static synchronized CustomVolleyRequestQueue getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new CustomVolleyRequestQueue(context);
+            Log.d("log", "instance received");
         }
+        Log.d("log", "instance returned");
         return mInstance;
+
     }
 
     public RequestQueue getRequestQueue() {
+        Log.d("log", "getting request queue");
         if (mRequestQueue == null) {
-            Cache cache = new DiskBasedCache(mCtx.getCacheDir(), 10 * 1024 * 1024);
+            Cache cache = new DiskBasedCache(mCtx.getCacheDir(), 5 * 1024 * 1024);
             Network network = new BasicNetwork(new HurlStack());
             mRequestQueue = new RequestQueue(cache, network);
             // Don't forget to start the volley request queue
             mRequestQueue.start();
+            Log.d("log", "request queue started");
         }
         return mRequestQueue;
     }

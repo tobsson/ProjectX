@@ -19,6 +19,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +30,7 @@ import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
-        SearchView.OnSuggestionListener, Response.Listener, Response.ErrorListener {
+        SearchView.OnSuggestionListener {
     public Button button;
     private SuggestionsDatabase database;
     private SearchView searchView;
@@ -39,8 +43,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext())
-                .getRequestQueue();
+
 
 
         setContentView(R.layout.activity_main);
@@ -70,6 +73,41 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             return;
         }
 
+       /* button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mQueue = CustomVolleyRequestQueue.getInstance(getApplicationContext())
+                        .getRequestQueue();
+                String url = "http://mysafeinfo.com/api/data?list=englishmonarchs&format=json";
+                final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        tweetView.setText("Response is: " + response);
+                        try {
+                            tweetView.setText(tweetView.getText() + "\n\n" + ((JSONObject) response).getString
+                                    ("nm"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        tweetView.setText(error.getMessage());
+                        Log.d("log", "error");
+                    }
+                });
+                jsonRequest.setTag(REQUEST_TAG);
+                mQueue.add(jsonRequest);
+
+
+            }
+
+        });
+*/
 
     }
 
@@ -153,47 +191,74 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
 
         if (v.getId() == R.id.btSearch) {
-            String keyword = new String();
-            keyword = searchView.getQuery().toString();
-            //String url = "http://webadress.xx/findtweets?query=" + keyword;
-            String url = "http://mysafeinfo.com/api/data?list=englishmonarchs&format=json";
-            final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method
-                    .GET, url,
-                    new JSONObject(), this, this);
+            mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
+            mQueue.start();
+            String keyword = searchView.getQuery().toString();
+            String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
+            final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    tweetView.setText("Response is: " + response);
+                    try {
+                        tweetView.setText(tweetView.getText() + "\n\n" + ((JSONObject) response).getString
+                                ("neutral").toString());
+                        Log.d("log", "that shit worked1");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    tweetView.setText(error.getMessage());
+                    Log.d("log", "error");
+                }
+            });
+            jsonRequest.setTag(REQUEST_TAG);
             mQueue.add(jsonRequest);
-
-           /* jsonRequest.get
-            JSONObject val = (JSONObject) ;
-            Log.d(LOG_TAG, "Value is " + val);
-
-            //Open a new activity and send the value of the clicked itema
-            Intent i = new Intent(getApplicationContext(), DetailedStatistics.class);
-            i.putExtra("lTID", val);
-            startActivity(i);
-*/
-            Intent i = new Intent(MainActivity.this, ResultsActivity.class);
-            //i.putExtra("lTID", val)
-            startActivity(i);
+            Log.d("log", "request added to the queue");
         }
     }
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mQueue != null) {
-            mQueue.cancelAll(REQUEST_TAG);
-        }
-    }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Log.d("log", "ERROR " + error);
-    }
 
-    @Override
-    public void onResponse(Object response) {
-        Log.d("log", "Value is " + response);
-    }
 }
 
+/*mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mQueue = CustomVolleyRequestQueue.getInstance(getApplicationContext())
+                        .getRequestQueue();
+                String url = "http://mysafeinfo.com/api/data?list=englishmonarchs&format=json";
+                final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        mTextView.setText("Response is: " + response);
+                        try {
+                            mTextView.setText(mTextView.getText() + "\n\n" + ((JSONObject) response).getString
+                                    ("name"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mTextView.setText(error.getMessage());
+                        Log.d("log", "error");
+                    }
+                });
+                jsonRequest.setTag(REQUEST_TAG);
+                mQueue.add(jsonRequest);
+
+
+            }
+
+        });*/
