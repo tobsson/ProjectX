@@ -43,17 +43,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="822b2418-6c0f-4fb7-a686-5fef010fde56" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrius/findatweet/CustomVolleyRequestQueue.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrius/findatweet/DetailedStatistics.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_results.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/OpenSans-Light.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/OpenSans-Regular.ttf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrius/findatweet/ResultsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrius/findatweet/ResultsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_piechart.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_piechart.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FindaTweet.iws" />
@@ -97,11 +93,9 @@
       <file leaf-file-name="ResultsActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrius/findatweet/ResultsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45454547">
-              <caret line="268" column="29" selection-start-line="268" selection-start-column="29" selection-end-line="268" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.70247936">
+              <caret line="17" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="428" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,7 +143,7 @@
           </provider>
           <provider editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -2408,7 +2402,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450365217202</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated files with small fixes in activities, text size etc.">
+      <created>1450373084947</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1450373084947</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2494,7 +2494,8 @@
     <MESSAGE value="Added list with cities to the spinner in action bar" />
     <MESSAGE value="Changed app name from FIND A Tweet to TREE TALK" />
     <MESSAGE value="Added manually Christos code manualy becouse it didnt worked with app. Everything is Working now. Changed colors of graphs, text and layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added manually Christos code manualy becouse it didnt worked with app. Everything is Working now. Changed colors of graphs, text and layout" />
+    <MESSAGE value="Updated files with small fixes in activities, text size etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated files with small fixes in activities, text size etc." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2983,18 +2984,16 @@
       </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrius/findatweet/ResultsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45454547">
-          <caret line="268" column="29" selection-start-line="268" selection-start-column="29" selection-end-line="268" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.70247936">
+          <caret line="17" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="428" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
