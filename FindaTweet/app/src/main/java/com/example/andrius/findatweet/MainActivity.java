@@ -14,23 +14,23 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.support.v7.app.ActionBarActivity;
 
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener,
-        SearchView.OnSuggestionListener   ///, ActionBar.OnNavigationListener
-{
+        SearchView.OnSuggestionListener   , ActionBar.OnNavigationListener, android.support.v7.app.ActionBar.OnNavigationListener {
 
 
             // action bar
-         ///   private ActionBar actionBar;
+         private android.support.v7.app.ActionBar actionBar;
 
             // Title navigation Spinner data
-           /// private ArrayList<SpinnerNavItem> navSpinner;
+         private ArrayList<SpinnerNavItem> navSpinner;
 
             // Navigation adapter
-           //// private TitleNavigationAdapter adapter1;
+         private TitleNavigationAdapter adapter;
 
 
 
@@ -51,28 +51,24 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
 
-            ///    actionBar = getActionBar();
+            actionBar = getSupportActionBar();
 
-                // Hide the action bar title
-               /// actionBar.setDisplayShowTitleEnabled(false);
+            // Hide the action bar title
+            actionBar.setDisplayShowTitleEnabled(false);
+            // Enabling Spinner dropdown navigation
+            actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_LIST);
+            //Spinner title navigation data
+            navSpinner = new ArrayList<SpinnerNavItem>();
+            navSpinner.add(new SpinnerNavItem("USA", R.drawable.usa));
+            navSpinner.add(new SpinnerNavItem("Sweden", R.drawable.sweden));
+            navSpinner.add(new SpinnerNavItem("Brasil", R.drawable.brazil));
+            navSpinner.add(new SpinnerNavItem("Sweden", R.drawable.sweden));
 
-                // Enabling Spinner dropdown navigation
-               //// actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            // title drop down adapter
+            adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
 
-                // Spinner title navigation data
-               //// navSpinner = new ArrayList<SpinnerNavItem>();
-                ////navSpinner.add(new SpinnerNavItem("USA", R.drawable.usa));
-               //// navSpinner
-                      ///  .add(new SpinnerNavItem("Sweden", R.drawable.sweden));
-               ///// navSpinner.add(new SpinnerNavItem("Brasil", R.drawable.brazil));
-               //// navSpinner.add(new SpinnerNavItem("Sweden", R.drawable.sweden));
-
-                // title drop down adapter
-               //// adapter1 = new TitleNavigationAdapter(getApplicationContext(),
-                     ///   navSpinner);
-
-                // assigning the spinner navigation
-               //// actionBar.setListNavigationCallbacks(adapter1, this);
+            // assigning the spinner navigation
+            actionBar.setListNavigationCallbacks(adapter, this);
 
                 // Changing the action bar icon
                 // actionBar.setIcon(R.drawable.ico_actionbar);
@@ -212,7 +208,13 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             Intent i = new Intent (MainActivity.this, SearchResultsActivity.class);
             startActivity(i);
         }
-    }}
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        return false;
+    }
+}
 
 
   ///  @Override
