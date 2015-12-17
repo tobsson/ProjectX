@@ -17,6 +17,12 @@
 
 
 
+        <item android:id="@+id/spinner"
+            app:showAsAction="ifRoom"
+            app:actionViewClass="android.widget.Spinner"
+            android:title="Spinner" />
+
+
 
     <item
         android:icon="@drawable/globe_white"

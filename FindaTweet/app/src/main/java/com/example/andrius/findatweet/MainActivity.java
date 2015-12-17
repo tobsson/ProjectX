@@ -1,7 +1,6 @@
 package com.example.andrius.findatweet;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,18 +13,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener,
-        SearchView.OnSuggestionListener
-        {
+        SearchView.OnSuggestionListener   ///, ActionBar.OnNavigationListener
+{
+
+
+            // action bar
+         ///   private ActionBar actionBar;
+
+            // Title navigation Spinner data
+           /// private ArrayList<SpinnerNavItem> navSpinner;
+
+            // Navigation adapter
+           //// private TitleNavigationAdapter adapter1;
+
+
+
 
 
     public Button button;
@@ -33,20 +41,45 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
     private SearchView searchView;
     private SharedPreferences preferences;
 
-            HashMap<String, List<String>> countriesHashMap;
-            List<String> countriesHashMapKeys;
-            ExpandableListView expandableListView;
-            ListCustomAdapter adapter;
+
 
 
 
 
             @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_main);
 
-        database = new SuggestionsDatabase(this);
+            ///    actionBar = getActionBar();
+
+                // Hide the action bar title
+               /// actionBar.setDisplayShowTitleEnabled(false);
+
+                // Enabling Spinner dropdown navigation
+               //// actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+                // Spinner title navigation data
+               //// navSpinner = new ArrayList<SpinnerNavItem>();
+                ////navSpinner.add(new SpinnerNavItem("USA", R.drawable.usa));
+               //// navSpinner
+                      ///  .add(new SpinnerNavItem("Sweden", R.drawable.sweden));
+               ///// navSpinner.add(new SpinnerNavItem("Brasil", R.drawable.brazil));
+               //// navSpinner.add(new SpinnerNavItem("Sweden", R.drawable.sweden));
+
+                // title drop down adapter
+               //// adapter1 = new TitleNavigationAdapter(getApplicationContext(),
+                     ///   navSpinner);
+
+                // assigning the spinner navigation
+               //// actionBar.setListNavigationCallbacks(adapter1, this);
+
+                // Changing the action bar icon
+                // actionBar.setIcon(R.drawable.ico_actionbar);
+
+
+
+    database = new SuggestionsDatabase(this);
         searchView = (SearchView) findViewById(R.id.searchView1);
         searchView.setOnQueryTextListener(this);
         searchView.setOnSuggestionListener(this);
@@ -58,38 +91,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
                 AutoCompleteTextView search_text = (AutoCompleteTextView) searchView.findViewById(searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
         search_text.setThreshold(1);
-///Code for expandableListView
-          expandableListView = (ExpandableListView) findViewById(R.id.expandableList);
-          countriesHashMap = CountryDataProvider.getDataHashMap();
-          countriesHashMapKeys = new ArrayList<String>(countriesHashMap.keySet());
 
-          adapter = new ListCustomAdapter(this, countriesHashMap, countriesHashMapKeys);
-          expandableListView.setAdapter(adapter);
-
-           expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                    @Override
-                    public void onGroupExpand(int groupPosition) {
-                        Toast.makeText(MainActivity.this,
-                                countriesHashMapKeys.get(groupPosition)
-                                        + " expanded", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-           expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-                    @Override
-                    public void onGroupCollapse(int groupPosition) {
-                        Toast.makeText(MainActivity.this, countriesHashMapKeys.get(groupPosition) + " collapsed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-           expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                    @Override
-                    public boolean onChildClick(ExpandableListView expandableListView, View clickedView, int groupPosition, int childPosition, long id) {
-                        Toast.makeText(MainActivity.this, "Selected " + countriesHashMap.get(countriesHashMapKeys.get(groupPosition)).get(childPosition)
-                                + " from " + countriesHashMapKeys.get(groupPosition), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
 
 
 
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         }
     }
 
-            @Override
+    @Override
             public boolean onCreateOptionsMenu(Menu menu) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menu_main, menu);
@@ -139,6 +141,21 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 //return true;
            // }
             return super.onOptionsItemSelected(item);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
             @Override
@@ -151,7 +168,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             public boolean onSuggestionClick(int position) {
 
                 SQLiteCursor cursor = (SQLiteCursor) searchView.getSuggestionsAdapter().getItem(position);
-                int indexColumnSuggestion = cursor.getColumnIndex( SuggestionsDatabase.FIELD_SUGGESTION);
+                int indexColumnSuggestion = cursor.getColumnIndex(SuggestionsDatabase.FIELD_SUGGESTION);
 
                 searchView.setQuery(cursor.getString(indexColumnSuggestion), false);
 
@@ -195,8 +212,14 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             Intent i = new Intent (MainActivity.this, SearchResultsActivity.class);
             startActivity(i);
         }
-    }
+    }}
 
 
-        }
+  ///  @Override
+   /// public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        // Action to be taken after selecting a spinner item
+      ///  return false;
+
+
+
 
