@@ -2,74 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/1.3.0/jars/classes.jar"
+        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.19/a8f23f65fc1e522ee4a1a697ee569901a46741fa/library-1.0.19.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="ac6948cce36f694f3eb3d73a135e298dc4b3527a">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-11913615c7e6d5741d599b2ce15547d71f7c24a6.jar" />
+        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/library-1.0.19-a2b2858a32cb49870d55627f02fc8e7132ce6af4.jar" />
     </item>
     <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.1/jars/classes.jar"
+        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.1.6/b036abbb61656165da99cf44898e4b9123687e65/MPAndroidChart-v2.1.6.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="3abb4b88f5a8a0584a9b01d3170d7165f12f8588">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-6c6164c47f7adef3367b2103f4eb499a5b5c3082.jar" />
-    </item>
-    <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-e5df7bec3247d3b89a650b4d896fc0d7f1a15e6e.jar" />
-    </item>
-    <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-a35f83fcbcb7ec756f80d6c62c5795785ff7779d.jar" />
-    </item>
-    <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-9972c7ddb451cea39e8d9d94707d41f07de85499.jar" />
-    </item>
-    <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/design/22.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1821601ddbec5ff125653097812823388700af74">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-c6d896c297d8c5d86c5e544dde7d2e6d6722057d.jar" />
-    </item>
-    <item
-        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/picasso-2.3.2-4341dd9c9bd73b3a3d66d3d1f62326c788cc1612.jar" />
-    </item>
-    <item
-        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/gson-2.3-7685b3b14a0485d24ae725aa2276658d34453000.jar" />
-    </item>
-    <item
-        jar="/home/andrius/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-bfe4f651aafe93ee290a0974aeb6462424b32b95.jar" />
-    </item>
-    <item
-        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="e1fa5e1123997a55e3ed65b44892993ff4b58cfe">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-962a558f4daf82625e7575b8da97c3a2b04d6320.jar" />
+        sha1="b036abbb61656165da99cf44898e4b9123687e65">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.1.6-1f22a78db3a04990ee8a7a0cf64605d157feba6f.jar" />
     </item>
 
 </items>
