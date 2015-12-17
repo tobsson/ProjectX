@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private SharedPreferences preferences;
     public static final String REQUEST_TAG = "MainVolleyActivity";
     private RequestQueue mQueue;
-    private TextView tweetView;
+    //private TextView tweetView;
     private String neutral;
     private String negative;
     private String positive;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         database = new SuggestionsDatabase(this);
         searchView = (SearchView) findViewById(R.id.searchView1);
-        tweetView = (TextView) findViewById(R.id.tweetView);
+        //tweetView = (TextView) findViewById(R.id.tweetView);
         searchView.setOnQueryTextListener(this);
         searchView.setOnSuggestionListener(this);
 
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                 ("2").toString();
                         user3 =  ((JSONObject) response).getString
                                 ("3").toString();
-                        tweetView.setText(neutral+" "+positive + " "+ negative);
+                        //tweetView.setText(neutral+" "+positive + " "+ negative);
                         Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " NEW"+ tweet3);
 
                         Intent i = new Intent(MainActivity.this, ResultsActivity.class);
