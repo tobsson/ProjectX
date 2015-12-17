@@ -38,6 +38,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public static final String REQUEST_TAG = "MainVolleyActivity";
     private RequestQueue mQueue;
     private TextView tweetView;
+    private String neutral;
+    private String negative;
+    private String positive;
+    private String user1;
+    private String user2;
+    private String user3;
+    private String tweet1;
+    private String tweet2;
+    private String tweet3;
 
 
     @Override
@@ -193,18 +202,60 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if (v.getId() == R.id.btSearch) {
             mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
             mQueue.start();
-            String keyword = searchView.getQuery().toString();
+            final String keyword = searchView.getQuery().toString();
             String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
             final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
                 @Override
                 public void onResponse(JSONObject response) {
 
-                    tweetView.setText("Response is: " + response);
+
                     try {
-                        tweetView.setText(tweetView.getText() + "\n\n" + ((JSONObject) response).getString
-                                ("neutral").toString());
-                        Log.d("log", "that shit worked1");
+                        neutral = ((JSONObject) response).getString
+                                ("neutral").toString();
+
+                        negative =  ((JSONObject) response).getString
+                                ("negative").toString();
+                        positive =  ((JSONObject) response).getString
+                                ("positive").toString();
+                        tweet1 =  ((JSONObject) response).getString
+                                ("11").toString();
+                        tweet2 =  ((JSONObject) response).getString
+                                ("12").toString();
+                        tweet3 =  ((JSONObject) response).getString
+                                ("13").toString();
+                        user1 =  ((JSONObject) response).getString
+                                ("1").toString();
+                        user2 =  ((JSONObject) response).getString
+                                ("2").toString();
+                        user3 =  ((JSONObject) response).getString
+                                ("3").toString();
+                        tweetView.setText(neutral+" "+positive + " "+ negative);
+                        Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " NEW"+ tweet3);
+
+                        Intent i = new Intent(MainActivity.this, ResultsActivity.class);
+
+                        //Create the bundle
+                        Bundle bundle = new Bundle();
+
+                        //Add your data to bundle
+                        bundle.putString("neutral", neutral);
+                        bundle.putString("negative", negative);
+                        bundle.putString("positive", positive);
+                        bundle.putString("user1", user1);
+                        bundle.putString("user2", user2);
+                        bundle.putString("user3", user3);
+                        bundle.putString("tweet1", tweet1);
+                        bundle.putString("tweet2", tweet2);
+                        bundle.putString("tweet3", tweet3);
+                        bundle.putString("keyword", keyword);
+
+                        //Add the bundle to the intent
+                        i.putExtras(bundle);
+
+                        //Fire that second activity
+                        startActivity(i);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

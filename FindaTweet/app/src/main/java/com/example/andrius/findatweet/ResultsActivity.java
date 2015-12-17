@@ -13,10 +13,19 @@ import android.view.View;
 import android.view.WindowManager;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -28,6 +37,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -36,11 +48,26 @@ public class ResultsActivity extends FragmentActivity {
     private PieChart mChart;
     //private SeekBar mSeekBarX, mSeekBarY;
     //private TextView tvX, tvY;
-    private float[] yData = { 45, 20, 35 };
+    public static final String REQUEST_TAG = "ResultsActivity";
+    private float[] yData;
     private String[] xData = { "Positive", "Neutral", "Negative" };
     private Button chartBtn;
-
+    private TextView tweetsView;
+    private RequestQueue mQueue;
     private Typeface tf;
+    private EditText searchField;
+
+    private int neutral;
+    private int negative;
+    private int positive;
+    private String tweet1;
+    private String tweet2;
+    private String tweet3;
+    private String user1;
+    private String user2;
+    private String user3;
+    private String keyword;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +77,23 @@ public class ResultsActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_piechart);
 
+        tweetsView = (TextView)findViewById(R.id.tweetView);
+        searchField = (EditText)findViewById(R.id.newSearchField);
+        bundle = getIntent().getExtras();
+        neutral = Integer.parseInt(bundle.getString("neutral"));
+        positive = Integer.parseInt(bundle.getString("positive"));
+        negative = Integer.parseInt(bundle.getString("negative"));
+        tweet1 = bundle.getString("tweet1");
+        tweet2 = bundle.getString("tweet2");
+        tweet3 = bundle.getString("tweet3");
+        user1 = bundle.getString("user1");
+        user2 = bundle.getString("user2");
+        user3 = bundle.getString("user3");
+        keyword = bundle.getString("keyword");
+
+        yData = new float[]{ positive, neutral, negative};
+        //tweetsView = (TextView)findViewById(R.id.tweetView);
+        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" +user3 + "\n" + tweet3);
 
         //tvX = (TextView) findViewById(R.id.tvXMax);
         //tvY = (TextView) findViewById(R.id.tvYMax);
@@ -92,7 +136,7 @@ public class ResultsActivity extends FragmentActivity {
         // add a selection listener
         //mChart.setOnChartValueSelectedListener(this);
 
-        mChart.setCenterText("What does Twitter think?\nby GroupX");
+        mChart.setCenterText("What does Twitter think about " + keyword + "?"+"\nby GroupX");
 
         setData(3, 100);
 
@@ -183,16 +227,148 @@ public class ResultsActivity extends FragmentActivity {
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
         data.setValueTypeface(tf);
+        mChart.setUsePercentValues(true);
+        mChart.setDescription("");
+
+        mChart.setDragDecelerationFrictionCoef(0.95f);
+
+        tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+
+        mChart.setCenterTextTypeface(Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf"));
+
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColorTransparent(true);
+
+        mChart.setTransparentCircleColor(Color.WHITE);
+
+        mChart.setHoleRadius(58f);
+        mChart.setTransparentCircleRadius(61f);
+
+        mChart.setDrawCenterText(true);
+
+        mChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        mChart.setRotationEnabled(true);
         mChart.setData(data);
 
         // undo all highlights
         mChart.highlightValues(null);
-
+        mChart.getLegend().setEnabled(false);
         mChart.invalidate();
     }
 
 
+    public void onButtonClick(View v) {
 
+
+
+        if (v.getId() == R.id.newSearchBtn) {
+
+            mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
+            mQueue.start();
+            final String keyword = searchField.getText().toString();
+            String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
+            final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+
+
+                    try {
+                        neutral = Integer.parseInt(((JSONObject) response).getString
+                                ("neutral").toString());
+
+                        negative =  Integer.parseInt(((JSONObject) response).getString
+                                ("negative").toString());
+                        positive =  Integer.parseInt(((JSONObject) response).getString
+                                ("positive").toString());
+                        tweet1 =  ((JSONObject) response).getString
+                                ("11").toString();
+                        tweet2 =  ((JSONObject) response).getString
+                                ("12").toString();
+                        tweet3 =  ((JSONObject) response).getString
+                                ("13").toString();
+                        user1 =  ((JSONObject) response).getString
+                                ("1").toString();
+                        user2 =  ((JSONObject) response).getString
+                                ("2").toString();
+                        user3 =  ((JSONObject) response).getString
+                                ("3").toString();
+                        //tweetView.setText(neutral+" "+positive + " "+ negative);
+                        Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " MEW"+ tweet3);
+
+                        yData = new float[]{ positive, neutral, negative};
+                        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
+                        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+                        for (int i = 0; i < yData.length; i++) {
+                            yVals1.add(new Entry(yData[i], i));
+                        }
+                        PieDataSet dataSet = new PieDataSet(yVals1, "Opinion Results");
+                        dataSet.setSliceSpace(3f);
+                        dataSet.setSelectionShift(5f);
+                        ArrayList<String> xVals = new ArrayList<String>();
+
+                        for (int i = 0; i < xData.length; i++)
+                            xVals.add(xData[i]);
+                        PieData data = new PieData(xVals, dataSet);
+                        dataSet.setSliceSpace(3f);
+                        dataSet.setSelectionShift(5f);
+
+                        // add a lot of colors
+
+                        ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+                            colors.add(c);
+
+                        for (int c : ColorTemplate.JOYFUL_COLORS)
+                            colors.add(c);
+
+                        for (int c : ColorTemplate.COLORFUL_COLORS)
+                            colors.add(c);
+
+                        for (int c : ColorTemplate.LIBERTY_COLORS)
+                            colors.add(c);
+
+                        for (int c : ColorTemplate.PASTEL_COLORS)
+                            colors.add(c);
+
+                        colors.add(ColorTemplate.getHoloBlue());
+
+                        dataSet.setColors(colors);
+
+
+
+                        data.setValueTextSize(11f);
+                        data.setValueTextColor(Color.WHITE);
+                        data.setValueTypeface(tf);
+                        mChart.setData(data);
+
+                        // undo all highlights
+                        mChart.highlightValues(null);
+                        mChart.setCenterText("What does Twitter think about " + keyword + "?" + "\nby GroupX");
+                        mChart.getLegend().setEnabled(false);
+                        mChart.invalidate();
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //tweetView.setText(error.getMessage());
+                    Log.d("log", "error");
+                }
+            });
+            jsonRequest.setTag(REQUEST_TAG);
+            mQueue.add(jsonRequest);
+            Log.d("log", "request added to the queue");
+        }
+    }
     // private void removeLastEntry() {
     //
     // PieData data = distChart.getDataOriginal();

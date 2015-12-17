@@ -7,62 +7,67 @@
         android:id="@+id/chart1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
-        android:layout_above="@+id/tweetsView" />
+        android:layout_below="@+id/newSearchField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/label" />
 
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/newSearchField"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button" />
+        android:layout_toLeftOf="@+id/newSearchBtn"
+        android:layout_toStartOf="@+id/newSearchBtn" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/button"
+        android:text="New Search"
+        android:id="@+id/newSearchBtn"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/editText" />
+        android:layout_alignBottom="@+id/editText"
+        android:onClick="onButtonClick" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pick Location"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/label"
+        android:text="View Tweets"
+        android:textColor="#000000"
+        android:textStyle="normal|bold"
+        android:textSize="22dp"
+        android:layout_above="@+id/tweetView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignRight="@+id/newSearchBtn"
+        android:layout_alignEnd="@+id/newSearchBtn" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tweetView"
+        android:layout_above="@+id/chartBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/newSearchBtn"
+        android:layout_alignEnd="@+id/newSearchBtn"
+        android:textColor="#000000" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Timeline"
         android:id="@+id/chartBtn"
-        android:layout_above="@+id/button3"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tweetsView"
-        android:layout_above="@+id/chartBtn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Nick: I hate cats. George: I love cats. Maria: Cats" />
+        android:layout_alignRight="@+id/newSearchBtn"
+        android:layout_alignEnd="@+id/newSearchBtn" />
 
 
 </RelativeLayout>
