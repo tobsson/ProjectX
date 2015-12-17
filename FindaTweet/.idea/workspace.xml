@@ -33,15 +33,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="822b2418-6c0f-4fb7-a686-5fef010fde56" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/onboarding_screen1.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/onboarding_screen1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FindaTweet.iws" />
@@ -2336,7 +2327,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450351163903</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Changed app name from FIND A Tweet to TREE TALK">
+      <created>1450354533558</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1450354533558</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2390,7 +2387,8 @@
     <MESSAGE value="trying to add png files" />
     <MESSAGE value="trying to add png files to git" />
     <MESSAGE value="Added list with cities to the spinner in action bar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added list with cities to the spinner in action bar" />
+    <MESSAGE value="Changed app name from FIND A Tweet to TREE TALK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed app name from FIND A Tweet to TREE TALK" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
