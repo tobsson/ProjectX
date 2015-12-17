@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.1.6/b036abbb61656165da99cf44898e4b9123687e65/MPAndroidChart-v2.1.6.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b036abbb61656165da99cf44898e4b9123687e65">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.1.6-1f22a78db3a04990ee8a7a0cf64605d157feba6f.jar" />
+    </item>
+    <item
+        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.19/a8f23f65fc1e522ee4a1a697ee569901a46741fa/library-1.0.19.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/library-1.0.19-a2b2858a32cb49870d55627f02fc8e7132ce6af4.jar" />
+    </item>
+
+</items>
