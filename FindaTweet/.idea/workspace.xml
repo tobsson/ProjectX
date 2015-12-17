@@ -183,7 +183,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="chris4" />
+        <entry key="$PROJECT_DIR$/.." value="andrius" />
       </map>
     </option>
     <push-targets>
@@ -2433,7 +2433,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450348791395</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added list with cities to the spinner in action bar">
+      <created>1450350882767</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1450350882767</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
