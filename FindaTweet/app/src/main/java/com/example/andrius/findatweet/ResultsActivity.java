@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +18,13 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
@@ -43,7 +47,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ResultsActivity extends FragmentActivity {
+public class ResultsActivity extends FragmentActivity implements View.OnKeyListener {
 
     private PieChart mChart;
     //private SeekBar mSeekBarX, mSeekBarY;
@@ -136,7 +140,7 @@ public class ResultsActivity extends FragmentActivity {
         // add a selection listener
         //mChart.setOnChartValueSelectedListener(this);
 
-        mChart.setCenterText("What does Twitter think about " + keyword + "?"+"\nby GroupX");
+        mChart.setCenterText("What does Twitter think about " + keyword.replaceAll("_", " ").toLowerCase() + "?"+"\nby GroupX");
 
         setData(3, 100);
 
@@ -255,6 +259,7 @@ public class ResultsActivity extends FragmentActivity {
         mChart.highlightValues(null);
         mChart.getLegend().setEnabled(false);
         mChart.invalidate();
+        mChart.animateY(2000, Easing.EasingOption.EaseInOutQuad);
     }
 
 
@@ -266,7 +271,7 @@ public class ResultsActivity extends FragmentActivity {
 
             mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
             mQueue.start();
-            final String keyword = searchField.getText().toString();
+            final String keyword = searchField.getText().toString().replaceAll(" ", "_").toLowerCase();
             String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
             final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
@@ -346,7 +351,7 @@ public class ResultsActivity extends FragmentActivity {
 
                         // undo all highlights
                         mChart.highlightValues(null);
-                        mChart.setCenterText("What does Twitter think about " + keyword + "?" + "\nby GroupX");
+                        mChart.setCenterText("What does Twitter think about " + keyword.replaceAll("_", " ").toLowerCase() + "?" + "\nby GroupX");
                         mChart.getLegend().setEnabled(false);
                         mChart.invalidate();
 
@@ -361,15 +366,27 @@ public class ResultsActivity extends FragmentActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //tweetView.setText(error.getMessage());
+                    Toast.makeText(ResultsActivity.this, "No Results found. Please search another term.",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("log", "error");
                     Log.d("log", "error");
                 }
             });
             jsonRequest.setTag(REQUEST_TAG);
+            int socketTimeout = 5000;//5 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsonRequest.setRetryPolicy(policy);
             mQueue.add(jsonRequest);
             Log.d("log", "request added to the queue");
         }
     }
-    // private void removeLastEntry() {
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        return false;
+    }
+
+
     //
     // PieData data = distChart.getDataOriginal();
     //

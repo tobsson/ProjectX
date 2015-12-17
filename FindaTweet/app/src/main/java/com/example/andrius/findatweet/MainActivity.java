@@ -14,10 +14,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
@@ -202,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if (v.getId() == R.id.btSearch) {
             mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
             mQueue.start();
-            final String keyword = searchView.getQuery().toString();
+            final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
             String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
             final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
@@ -264,11 +267,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    tweetView.setText(error.getMessage());
+                    //tweetView.setText(error.getMessage());
+                    Toast.makeText(MainActivity.this, "No Results found. Please search another term.",
+                            Toast.LENGTH_LONG).show();
                     Log.d("log", "error");
                 }
             });
             jsonRequest.setTag(REQUEST_TAG);
+            int socketTimeout = 7000;//5 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsonRequest.setRetryPolicy(policy);
             mQueue.add(jsonRequest);
             Log.d("log", "request added to the queue");
         }
