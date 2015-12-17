@@ -1,8 +1,0 @@
-<searchable xmlns:android="http://schemas.android.com/apk/res/android"
-    android:hint="@string/Hint"
-    android:includeInGlobalSearch="true"
-    android:label="@string/Label"
-    android:searchSettingsDescription="@string/global"
-    android:searchSuggestAuthority="com.app.SearchFunction"
-    android:searchSuggestSelection=" ? "
-    />

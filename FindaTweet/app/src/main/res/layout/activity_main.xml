@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="group X"
+        android:text="TreeTalk"
         android:id="@+id/textView2"
         android:layout_above="@+id/searchView1"
         android:layout_centerHorizontal="true"
@@ -55,5 +55,9 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/abc_alert_dialog_button_bar_height"
         android:textStyle="bold" />
+
+
+
+
 
 </RelativeLayout>

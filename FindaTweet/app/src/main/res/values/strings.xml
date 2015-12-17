@@ -4,5 +4,45 @@
     <string name="action_about">About</string>
     <string name="title_activity_onboarding">Onboarding</string>
     <string name="title_activity_search_results">Find a Tweet</string>
+    <string name="action_location">action_location</string>
+
+    <string name="action_tweet">action_location</string>
+
+    <string name="item1">action</string>
+
+
+    <string name="hello_world">Action Bar</string>
+    <string name="btn_send_message">Send Message</string>
+
+    <!-- Activity titles -->
+    <string name="activity_location_found">Location Found</string>
+
+    <!-- Action Bar action items -->
+    <string name="action_search">Sarch</string>
+    <string name="action_location_found">Location Found</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_contacts">Contacts</string>
+    <string name="action_help">Help</string>
+    <string name="action_check_updates">Check for Updates</string>
+
+    <!-- Search  -->
+    <string name="search_hint">Search color..</string>
+
+    <string-array name="country_array">
+        <item>France</item>
+        <item>Denmark</item>
+        <item>Russia</item>
+        <item>Norway</item>
+        <item>England</item>
+        <item>Sweden</item>
+        <item>Italy</item>
+        <item>Germany</item>
+    </string-array>
+
+    <string-array name="nav_list">
+        <item>Tools</item>
+        <item>Android Design Guide Site</item>
+        <item>Rate This App</item>
+    </string-array>
 
 </resources>
