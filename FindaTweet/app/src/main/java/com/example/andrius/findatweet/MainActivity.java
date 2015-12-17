@@ -59,10 +59,17 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_LIST);
             //Spinner title navigation data
             navSpinner = new ArrayList<SpinnerNavItem>();
-            navSpinner.add(new SpinnerNavItem("USA", R.drawable.usa));
-            navSpinner.add(new SpinnerNavItem("Sweden", R.drawable.sweden));
-            navSpinner.add(new SpinnerNavItem("Brasil", R.drawable.brazil));
-            navSpinner.add(new SpinnerNavItem("Sweden", R.drawable.sweden));
+            navSpinner.add(new SpinnerNavItem("New York", R.drawable.usa));
+            navSpinner.add(new SpinnerNavItem("Stockholm", R.drawable.sweden));
+            navSpinner.add(new SpinnerNavItem("Rio De Jeneiro", R.drawable.brazil));
+            navSpinner.add(new SpinnerNavItem("Gothenburg", R.drawable.sweden));
+             navSpinner.add(new SpinnerNavItem("Helsinki", R.drawable.finland));
+                navSpinner.add(new SpinnerNavItem("Copenhagen", R.drawable.denmark));
+                navSpinner.add(new SpinnerNavItem("Paris", R.drawable.france));
+                navSpinner.add(new SpinnerNavItem("Amsterdam", R.drawable.netherlands));
+                navSpinner.add(new SpinnerNavItem("London", R.drawable.england));
+                navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
+                navSpinner.add(new SpinnerNavItem("Global", R.drawable.globe_white));
 
             // title drop down adapter
             adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
