@@ -147,12 +147,12 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
         setData(3, 100);
 
-        mChart.animateY(2000, Easing.EasingOption.EaseInOutQuad);
+        mChart.animateY(2000, Easing.EasingOption.EaseOutBack);
         // distChart.spin(2000, 0, 360);
 
         Legend l = mChart.getLegend();
-        l.setPosition(LegendPosition.RIGHT_OF_CHART);
-        l.setXEntrySpace(12f);
+        l.setPosition(LegendPosition.PIECHART_CENTER);
+        l.setXEntrySpace(15f);
         l.setYEntrySpace(10f);
 
 
@@ -205,7 +205,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        for (int c : ColorTemplate.LIBERTY_COLORS)
+        for (int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
 
         for (int c : ColorTemplate.PASTEL_COLORS)
@@ -227,7 +227,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         PieData data = new PieData(xVals, dataSet);
 
 
-        data.setValueTextSize(11f);
+        data.setValueTextSize(20f);
         data.setValueTextColor(Color.WHITE);
         data.setValueTypeface(tf);
         mChart.setUsePercentValues(true);
@@ -322,7 +322,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
                         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-                        for (int c : ColorTemplate.LIBERTY_COLORS)
+                        for (int c : ColorTemplate.COLORFUL_COLORS)
                             colors.add(c);
 
                         for (int c : ColorTemplate.JOYFUL_COLORS)
@@ -343,7 +343,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
 
 
-                        data.setValueTextSize(11f);
+                        data.setValueTextSize(20f);
                         data.setValueTextColor(Color.WHITE);
                         data.setValueTypeface(tf);
                         mChart.setData(data);

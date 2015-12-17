@@ -5,7 +5,7 @@
     <string name="title_activity_onboarding">Onboarding</string>
     <string name="title_activity_search_results">TreeTalk</string>
     <string name="action_location">action_location</string>
-
+    <string name="results_activity_title">TreeTalk</string>
     <string name="action_tweet">action_location</string>
 
     <string name="item1">action</string>

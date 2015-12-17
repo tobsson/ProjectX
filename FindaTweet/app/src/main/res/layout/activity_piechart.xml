@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
 
     <EditText
@@ -10,25 +12,13 @@
         android:id="@+id/newSearchField"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/newSearchBtn"
-        android:layout_toStartOf="@+id/newSearchBtn" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Search"
-        android:id="@+id/newSearchBtn"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/editText"
-        android:onClick="onButtonClick" />
+        android:background="@android:color/holo_blue_light" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/label"
-        android:text="View Tweets"
+        android:text="Tweets"
         android:textColor="#ffffff"
         android:textStyle="normal|bold"
         android:textSize="22dp"
@@ -57,7 +47,17 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/holo_blue_dark" />
+        android:background="@android:color/holo_blue_light" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/newSearchBtn"
+        android:background="@drawable/search_white_btn"
+        android:layout_above="@+id/chart1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onButtonClick" />
 
 
 </RelativeLayout>
