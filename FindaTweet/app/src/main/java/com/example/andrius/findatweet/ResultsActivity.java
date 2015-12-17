@@ -109,7 +109,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
         // mSeekBarX.setOnSeekBarChangeListener(this);
         // mSeekBarY.setOnSeekBarChangeListener(this);
-        chartBtn = (Button) findViewById(R.id.chartBtn);
+        //chartBtn = (Button) findViewById(R.id.chartBtn);
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
         mChart.setDescription("");
@@ -153,7 +153,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         l.setYEntrySpace(5f);
 
 
-        View.OnClickListener buttonListener = new View.OnClickListener() {
+        /*View.OnClickListener buttonListener = new View.OnClickListener() {
             boolean clicked = false;
 
 
@@ -164,7 +164,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
             }
         };
-        chartBtn.setOnClickListener(buttonListener);
+        chartBtn.setOnClickListener(buttonListener);*/
 
     }
 
