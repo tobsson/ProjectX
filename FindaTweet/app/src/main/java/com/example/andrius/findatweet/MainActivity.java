@@ -50,13 +50,6 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
          private TitleNavigationAdapter adapter;
 
 
-
-
-
-
-
-
-
     public Button button;
     private SuggestionsDatabase database;
     private SearchView searchView;
@@ -98,13 +91,13 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             navSpinner.add(new SpinnerNavItem("Stockholm", R.drawable.sweden));
             navSpinner.add(new SpinnerNavItem("Rio De Jeneiro", R.drawable.brazil));
             navSpinner.add(new SpinnerNavItem("Gothenburg", R.drawable.sweden));
-             navSpinner.add(new SpinnerNavItem("Helsinki", R.drawable.finland));
-                navSpinner.add(new SpinnerNavItem("Copenhagen", R.drawable.denmark));
-                navSpinner.add(new SpinnerNavItem("Paris", R.drawable.france));
-                navSpinner.add(new SpinnerNavItem("Amsterdam", R.drawable.netherlands));
-                navSpinner.add(new SpinnerNavItem("London", R.drawable.england));
-                navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
-                navSpinner.add(new SpinnerNavItem("Global", R.drawable.globe_white));
+            navSpinner.add(new SpinnerNavItem("Helsinki", R.drawable.finland));
+            navSpinner.add(new SpinnerNavItem("Copenhagen", R.drawable.denmark));
+            navSpinner.add(new SpinnerNavItem("Paris", R.drawable.france));
+            navSpinner.add(new SpinnerNavItem("Amsterdam", R.drawable.netherlands));
+            navSpinner.add(new SpinnerNavItem("London", R.drawable.england));
+            navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
+            navSpinner.add(new SpinnerNavItem("Global", R.drawable.globe_white));
 
             // title drop down adapter
             adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
@@ -117,18 +110,14 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
 
 
-    database = new SuggestionsDatabase(this);
-        searchView = (SearchView) findViewById(R.id.searchView1);
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnSuggestionListener(this);
+           database = new SuggestionsDatabase(this);
+           searchView = (SearchView) findViewById(R.id.searchView1);
+           searchView.setOnQueryTextListener(this);
+           searchView.setOnSuggestionListener(this);
 
 
-
-
-
-
-                AutoCompleteTextView search_text = (AutoCompleteTextView) searchView.findViewById(searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
-        search_text.setThreshold(1);
+           AutoCompleteTextView search_text = (AutoCompleteTextView) searchView.findViewById(searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
+           search_text.setThreshold(1);
 
 
 
@@ -139,10 +128,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
 
         // Get the shared preferences
-        preferences =  getSharedPreferences("my_preferences", MODE_PRIVATE);
+           preferences =  getSharedPreferences("my_preferences", MODE_PRIVATE);
 
         // Check if onboarding_complete is false
-        if(!preferences.getBoolean("onboarding_complete",false)) {
+           if(!preferences.getBoolean("onboarding_complete",false)) {
             // Start the onboarding Activity
             Intent onboarding = new Intent(this, Onboarding.class);
             startActivity(onboarding);
@@ -153,48 +142,31 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         }
     }
 
-    @Override
+       @Override
             public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menu_main, menu);
 
-
-
-
-                return super.onCreateOptionsMenu(menu);
+            return super.onCreateOptionsMenu(menu);
             }
 
 
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+         @Override
+            public boolean onOptionsItemSelected(MenuItem item) {
             // Handle action bar item clicks here. The action bar will
             // automatically handle clicks on the Home/Up button, so long
             // as you specify a parent activity in AndroidManifest.xml.
 
-
-           // int id = item.getItemId();
+             // int id = item.getItemId();
            // if (id == R.id.action_location) {
                // startActivity(new Intent(getApplicationContext(),SearchResultsActivity.class));
                 //return true;
            // }
             return super.onOptionsItemSelected(item);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
+         }
 
             @Override
             public boolean onSuggestionSelect(int position) {
@@ -204,30 +176,44 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
             @Override
             public boolean onSuggestionClick(int position) {
-
-                SQLiteCursor cursor = (SQLiteCursor) searchView.getSuggestionsAdapter().getItem(position);
-                int indexColumnSuggestion = cursor.getColumnIndex(SuggestionsDatabase.FIELD_SUGGESTION);
-
-                searchView.setQuery(cursor.getString(indexColumnSuggestion), false);
-
+            //When user will tap on suggested word ,onSuggestionClick(int position) will be called for that.
+            // We get the SQLiteCursor object from the SearchView's
+            // adapter (SuggestionSimpleCursorAdapter)
+            // and get the Suggestion text from it, set the suggestion text in SearchView object
 
 
+            SQLiteCursor cursor = (SQLiteCursor) searchView.getSuggestionsAdapter().getItem(position);
+            int indexColumnSuggestion = cursor.getColumnIndex(SuggestionsDatabase.FIELD_SUGGESTION);
+             searchView.setQuery(cursor.getString(indexColumnSuggestion), false);
 
                 return true;
             }
 
+
+
+
             @Override
             public boolean onQueryTextSubmit(String query) {
+            //When user taps the search or enter, the onQueryTextSubmit() will
+            // be triggered and then the search keyword will be saved in Android Sqlite database
                 long result = database.insertSuggestion(query);
                 return result != -1;
             }
+
+
+
             @Override
             public boolean onQueryTextChange(String newText) {
+                //If the user writes a string for example "Hel" or "H" in SearchView the onQueryTextChange()
+                // will be called and then search for this keyword  will be performed in Android SQLiteDatabase (SuggestionDatabase).
+                // If "Hel" or "H" matches "Hello" , displays the results of
+                // query by setting the returned Cursor in SuggestionSimpleCursorAdapter
+                // and then set this adapter in SearchView.
 
-                Cursor cursor = database.getSuggestions(newText);
-                if(cursor.getCount() != 0)
+            Cursor cursor = database.getSuggestions(newText);
+            if(cursor.getCount() != 0)
                 {
-                    String[] columns = new String[] {SuggestionsDatabase.FIELD_SUGGESTION };
+                 String[] columns = new String[] {SuggestionsDatabase.FIELD_SUGGESTION };
                     int[] columnTextId = new int[] { android.R.id.text1};
 
                     SuggestionSimpleCursorAdapter simple = new SuggestionSimpleCursorAdapter(getBaseContext(),
@@ -235,10 +221,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                             columns , columnTextId
                             , 0);
 
-             searchView.setSuggestionsAdapter(simple);
+                    searchView.setSuggestionsAdapter(simple);
                     return true;
                 }
-                else
+                    else
                 {
                     return false;
                 }}
@@ -347,9 +333,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         }
     }
 
-
+//Actionbar navigation item select listener
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+//Action to be taken after selecting a spinner item
         return false;
     }
 }
