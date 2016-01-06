@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.19/a8f23f65fc1e522ee4a1a697ee569901a46741fa/library-1.0.19.jar"
+        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/library-1.0.19-a2b2858a32cb49870d55627f02fc8e7132ce6af4.jar" />
+        sha1="345a1b5cf5b144ce18ba6962bc66a7e2f26c1c1b">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-4c9f15258a6bc016ff890bb07f85c633b7b3515e.jar" />
     </item>
     <item
-        jar="/home/andrius/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.1.6/b036abbb61656165da99cf44898e4b9123687e65/MPAndroidChart-v2.1.6.jar"
+        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.3.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="b036abbb61656165da99cf44898e4b9123687e65">
-        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.1.6-1f22a78db3a04990ee8a7a0cf64605d157feba6f.jar" />
+        sha1="27775d59b16610ac76f1b83693fedd9520396332">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-32bde8ea0967fc871eb6ca949fd505ed18432870.jar" />
     </item>
 
 </items>

@@ -34,6 +34,9 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 
 public class MainActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener,
@@ -79,7 +82,14 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
 
-            actionBar = getSupportActionBar();
+                AdView mAdView = (AdView) findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
+
+
+
+
+                actionBar = getSupportActionBar();
 
             // Hide the action bar title
             actionBar.setDisplayShowTitleEnabled(false);
