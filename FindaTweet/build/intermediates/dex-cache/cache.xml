@@ -2,6 +2,7 @@
 <items version="2" >
 
     <item
+<<<<<<< HEAD
         jar="/home/tobs/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -70,6 +71,20 @@
         revision="23.0.1"
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
         <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-53009b331e33fe8fad395e13c7790f41e533a738.jar" />
+=======
+        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="345a1b5cf5b144ce18ba6962bc66a7e2f26c1c1b">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-4c9f15258a6bc016ff890bb07f85c633b7b3515e.jar" />
+    </item>
+    <item
+        jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="27775d59b16610ac76f1b83693fedd9520396332">
+        <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-32bde8ea0967fc871eb6ca949fd505ed18432870.jar" />
+>>>>>>> andrius
     </item>
 
 </items>

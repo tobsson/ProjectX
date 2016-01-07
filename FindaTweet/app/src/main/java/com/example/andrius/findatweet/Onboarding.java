@@ -30,6 +30,9 @@ public class Onboarding extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //We calling setContentView to display the layout defined
+        // in activity_onboarding.xml and using the findViewById method
+        // to initialize the member variables (ViewPager pager; SmartTabLayout indicator; ButtonFlat skip;ButtonFlat next;
 
         setContentView(R.layout.activity_onboarding);
 
@@ -50,7 +53,8 @@ public class Onboarding extends FragmentActivity {
                 finishOnboarding();
             }
         });
-
+    //A handler of the next button, use setCurrentItem along with getCurrentItem to move to the next onboarding screen.
+    // Also, if getCurrentItem returns the last onboarding screen, call a method finishOnboarding.
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,10 +116,12 @@ public class Onboarding extends FragmentActivity {
         });
 
     }
-
+//  FragmentStatePagerAdapter that the ViewPager can use to display the onboarding screens.
     FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
         @Override
         public Fragment getItem(int position) {
+            //A switch statement to the getItem method to return the correct Fragment based on the value of position
             switch (position) {
                 case 0 : return new OnboardingFragment1();
                 case 1 : return new OnboardingFragment2();
@@ -125,25 +131,26 @@ public class Onboarding extends FragmentActivity {
         }
 
         @Override
+        //returns the number of onboarding screens.
         public int getCount() {
             return 3;
         }
     };
 
     private void finishOnboarding() {
-
+        // Get the shared preferences
         SharedPreferences preferences =
                 getSharedPreferences("my_preferences", MODE_PRIVATE);
 
-
+        // Set onboarding_complete to true
         preferences.edit()
                 .putBoolean("onboarding_complete",true).apply();
 
-
+        // Launch the main Activity
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
 
-
+        // Close the OnboardingActivity
         finish();
     }
 }

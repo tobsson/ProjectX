@@ -42,6 +42,8 @@ public class TitleNavigationAdapter extends BaseAdapter {
         return position;
     }
 
+
+    //Method to get images into spinner
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -59,7 +61,7 @@ public class TitleNavigationAdapter extends BaseAdapter {
         return convertView;
     }
 
-
+//Method to get text into spinner
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

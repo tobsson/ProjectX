@@ -3,6 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+
     android:orientation="vertical"
     android:weightSum="1"
     android:onClick="onButtonClick"
@@ -55,6 +57,18 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/abc_alert_dialog_button_bar_height"
         android:textStyle="bold" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_above="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp">
+    </com.google.android.gms.ads.AdView>
+
 
 
 

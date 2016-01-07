@@ -12,6 +12,8 @@ import com.example.andrius.findatweet.R;
  * Created by Andrius on 2015-10-14.
  */
 public class OnboardingFragment2  extends Fragment {
+    //call the inflate method to create a View using the layout we defined
+    // in onboarding_screen2.xml and return the View
 
     @Nullable
     @Override
