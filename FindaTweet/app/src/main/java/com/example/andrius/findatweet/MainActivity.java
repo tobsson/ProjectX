@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -217,6 +218,13 @@ private ProgressBar spinner;
             public boolean onQueryTextSubmit(String query) {
             //When user taps the search or enter, the onQueryTextSubmit() will
             // be triggered and then the search keyword will be saved in Android Sqlite database
+
+                //Hides on-screen keyboard after search term i submitted
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+
+
+                //Shows loading spinner while search is in progress
                 spinner.setVisibility(View.VISIBLE);
                 index = actionBar.getSelectedNavigationIndex();
 
