@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="annotations18">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/AndroidTabWithSwipe/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/annotations.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="debug7">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Spinner/app/build/intermediates/pre-dexed/debug/classes-11e9caab613193930fed28e9dfdbc61431d089eb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Spinner/app/build/intermediates/pre-dexed/debug/classes-85b302d67b3ac2f00fae4847d9a1eb25d9a11797.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Spinner/app/build/intermediates/pre-dexed/debug/classes-74aa007f7d90307d3778c8e4a36d15056ea8ef37.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Spinner/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-37048afc9d613da151c2f8248fc1ac82bb5fd09e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Spinner/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-ecbf01d99b7b00252691849f43caf48bcc105d09.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Spinner/app/build/intermediates/pre-dexed/debug/classes-c77fef615db4615f70d3e191815adf330d0aeb9a.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

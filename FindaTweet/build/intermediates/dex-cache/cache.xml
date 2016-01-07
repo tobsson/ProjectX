@@ -2,6 +2,76 @@
 <items version="2" >
 
     <item
+<<<<<<< HEAD
+        jar="/home/tobs/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/gson-2.3-73532d40d5eb055e08a89e404c5ae83cf57230d5.jar" />
+    </item>
+    <item
+        jar="/home/tobs/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/picasso-2.3.2-4113f4968d8cb77f1c699272457725e40d401b0a.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3abb4b88f5a8a0584a9b01d3170d7165f12f8588">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-dc25605495f0008040162dcd8be93a6a4daa8749.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ac6948cce36f694f3eb3d73a135e298dc4b3527a">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-4e2982713305e1111eb3ffd2be227d8516865cf4.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-c22fec1f3f505e2c7091427892d42af9ab6a1d8f.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e1fa5e1123997a55e3ed65b44892993ff4b58cfe">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-2fa0607b012fbe04327b3d8a08ab991a28216ff5.jar" />
+    </item>
+    <item
+        jar="/home/tobs/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-6e19d7ac54ca992e5172e917a7fd2b1bfe852168.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/design/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-2ecba5b41267d83c8ef00588a345533caff6c953.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-b22488b5741756f281a3f74f4c52d41e612b79b9.jar" />
+    </item>
+    <item
+        jar="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/home/tobs/GitHub/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-53009b331e33fe8fad395e13c7790f41e533a738.jar" />
+=======
         jar="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -14,6 +84,7 @@
         revision="23.0.1"
         sha1="27775d59b16610ac76f1b83693fedd9520396332">
         <dex dex="/home/andrius/StudioProjects/ProjectX/FindaTweet/app/build/intermediates/pre-dexed/debug/classes-32bde8ea0967fc871eb6ca949fd505ed18432870.jar" />
+>>>>>>> andrius
     </item>
 
 </items>
