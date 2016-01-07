@@ -2455,7 +2455,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452183743632</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Find results by location is fixed.&#10;ProgressBar is working &#10;REmoved search button&#10;">
+      <created>1452183753369</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1452183753369</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
