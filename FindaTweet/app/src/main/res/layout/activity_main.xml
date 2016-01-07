@@ -11,15 +11,7 @@
     android:background="@drawable/wallpaper_8547">
 
 
-    <ImageButton
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:id="@+id/btSearch"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/search_white_btn"
-        android:onClick="onButtonClick"
-        android:layout_below="@+id/searchView1"
-        android:layout_centerHorizontal="true" />
+    
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,6 +60,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp">
     </com.google.android.gms.ads.AdView>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
 
 
 

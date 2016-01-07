@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             // Navigation adapter
          private TitleNavigationAdapter adapter;
 
+private ProgressBar spinner;
 
-    public Button button;
     private SuggestionsDatabase database;
     private SearchView searchView;
     private SharedPreferences preferences;
@@ -71,6 +72,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
     private String tweet1;
     private String tweet2;
     private String tweet3;
+    private float longtitude;
+    private float latitude;
+    private String city;
+    private int index;
 
 
 
@@ -87,6 +92,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 mAdView.loadAd(adRequest);
 
 
+                spinner = (ProgressBar)findViewById(R.id.progressBar1);
+                spinner.setVisibility(View.GONE);
+
+
 
 
                 actionBar = getSupportActionBar();
@@ -97,6 +106,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_LIST);
             //Spinner title navigation data
             navSpinner = new ArrayList<SpinnerNavItem>();
+                navSpinner.add(new SpinnerNavItem("Global", R.drawable.globe_white));
             navSpinner.add(new SpinnerNavItem("New York", R.drawable.usa));
             navSpinner.add(new SpinnerNavItem("Stockholm", R.drawable.sweden));
             navSpinner.add(new SpinnerNavItem("Rio De Jeneiro", R.drawable.brazil));
@@ -107,7 +117,8 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             navSpinner.add(new SpinnerNavItem("Amsterdam", R.drawable.netherlands));
             navSpinner.add(new SpinnerNavItem("London", R.drawable.england));
             navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
-            navSpinner.add(new SpinnerNavItem("Global", R.drawable.globe_white));
+
+
 
             // title drop down adapter
             adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
@@ -118,11 +129,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 // Changing the action bar icon
                 // actionBar.setIcon(R.drawable.ico_actionbar);
 
-
-
            database = new SuggestionsDatabase(this);
            searchView = (SearchView) findViewById(R.id.searchView1);
            searchView.setOnQueryTextListener(this);
+                searchView.setSubmitButtonEnabled(true);
            searchView.setOnSuggestionListener(this);
 
 
@@ -137,7 +147,8 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
 
 
-        // Get the shared preferences
+
+                // Get the shared preferences
            preferences =  getSharedPreferences("my_preferences", MODE_PRIVATE);
 
         // Check if onboarding_complete is false
@@ -206,6 +217,101 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             public boolean onQueryTextSubmit(String query) {
             //When user taps the search or enter, the onQueryTextSubmit() will
             // be triggered and then the search keyword will be saved in Android Sqlite database
+                spinner.setVisibility(View.VISIBLE);
+                index = actionBar.getSelectedNavigationIndex();
+
+                Log.d("LOOOOG", "INDEX"+ index);
+                longtitude = navSpinner.get(index).getLongtitude();
+                latitude = navSpinner.get(index).getLatitude();
+                Log.d("LOOOOG", "longtitude"+ longtitude);
+
+
+                    mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
+                    mQueue.start();
+                    final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
+                    String url = "";
+                    if (index == 0){
+                        url = "http://83.248.73.168:8080/findtweets?query="+keyword;
+                        Log.d("LOOOOG url", "URL " + url);
+                    } else {
+                        url = "http://83.248.73.168:8080/findtweets?query="+keyword + "&loc="+ latitude +","+longtitude+",20km";
+                        Log.d("LOOOOG url", "URL " + url);}
+
+                    final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+
+                            try {
+                                neutral = ((JSONObject) response).getString
+                                        ("neutral").toString();
+
+                                negative =  ((JSONObject) response).getString
+                                        ("negative").toString();
+                                positive =  ((JSONObject) response).getString
+                                        ("positive").toString();
+                                tweet1 =  ((JSONObject) response).getString
+                                        ("11").toString();
+                                tweet2 =  ((JSONObject) response).getString
+                                        ("12").toString();
+                                tweet3 =  ((JSONObject) response).getString
+                                        ("13").toString();
+                                user1 =  ((JSONObject) response).getString
+                                        ("1").toString();
+                                user2 =  ((JSONObject) response).getString
+                                        ("2").toString();
+                                user3 =  ((JSONObject) response).getString
+                                        ("3").toString();
+                                //tweetView.setText(neutral+" "+positive + " "+ negative);
+                                Log.d("log", "that worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " NEW"+ tweet3);
+
+                                Intent i = new Intent(MainActivity.this, ResultsActivity.class);
+
+                                //Create the bundle
+                                Bundle bundle = new Bundle();
+
+                                //Add your data to bundle
+                                bundle.putString("neutral", neutral);
+                                bundle.putString("negative", negative);
+                                bundle.putString("positive", positive);
+                                bundle.putString("user1", user1);
+                                bundle.putString("user2", user2);
+                                bundle.putString("user3", user3);
+                                bundle.putString("tweet1", tweet1);
+                                bundle.putString("tweet2", tweet2);
+                                bundle.putString("tweet3", tweet3);
+                                bundle.putString("keyword", keyword);
+
+                                //Add the bundle to the intent
+                                i.putExtras(bundle);
+                                spinner.setVisibility(View.GONE);
+                                //Fire that second activity
+                                startActivity(i);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            spinner.setVisibility(View.GONE);
+                            //tweetView.setText(error.getMessage());
+                            Toast.makeText(MainActivity.this, "No Results found. Please search another term, or check your internet connection",
+                                    Toast.LENGTH_LONG).show();
+                            Log.d("log", "error");
+                        }
+                    });
+                    jsonRequest.setTag(REQUEST_TAG);
+                    int socketTimeout = 7000;//5 seconds - change to what you want
+                    RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                    jsonRequest.setRetryPolicy(policy);
+                    mQueue.add(jsonRequest);
+                    Log.d("log", "request added to the queue");
+
+
                 long result = database.insertSuggestion(query);
                 return result != -1;
             }
@@ -259,89 +365,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         ///Action to be taken after selecting a spinner item
       //return false;
 
-    public void onButtonClick(View v) {
-        //open SearchResultsActivity when search button is clicked
 
-
-        if (v.getId() == R.id.btSearch) {
-            mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
-            mQueue.start();
-            final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
-            String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
-            final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject response) {
-
-
-                    try {
-                        neutral = ((JSONObject) response).getString
-                                ("neutral").toString();
-
-                        negative =  ((JSONObject) response).getString
-                                ("negative").toString();
-                        positive =  ((JSONObject) response).getString
-                                ("positive").toString();
-                        tweet1 =  ((JSONObject) response).getString
-                                ("11").toString();
-                        tweet2 =  ((JSONObject) response).getString
-                                ("12").toString();
-                        tweet3 =  ((JSONObject) response).getString
-                                ("13").toString();
-                        user1 =  ((JSONObject) response).getString
-                                ("1").toString();
-                        user2 =  ((JSONObject) response).getString
-                                ("2").toString();
-                        user3 =  ((JSONObject) response).getString
-                                ("3").toString();
-                        //tweetView.setText(neutral+" "+positive + " "+ negative);
-                        Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " NEW"+ tweet3);
-
-                        Intent i = new Intent(MainActivity.this, ResultsActivity.class);
-
-                        //Create the bundle
-                        Bundle bundle = new Bundle();
-
-                        //Add your data to bundle
-                        bundle.putString("neutral", neutral);
-                        bundle.putString("negative", negative);
-                        bundle.putString("positive", positive);
-                        bundle.putString("user1", user1);
-                        bundle.putString("user2", user2);
-                        bundle.putString("user3", user3);
-                        bundle.putString("tweet1", tweet1);
-                        bundle.putString("tweet2", tweet2);
-                        bundle.putString("tweet3", tweet3);
-                        bundle.putString("keyword", keyword);
-
-                        //Add the bundle to the intent
-                        i.putExtras(bundle);
-
-                        //Fire that second activity
-                        startActivity(i);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //tweetView.setText(error.getMessage());
-                    Toast.makeText(MainActivity.this, "No Results found. Please search another term.",
-                            Toast.LENGTH_LONG).show();
-                    Log.d("log", "error");
-                }
-            });
-            jsonRequest.setTag(REQUEST_TAG);
-            int socketTimeout = 7000;//5 seconds - change to what you want
-            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-            jsonRequest.setRetryPolicy(policy);
-            mQueue.add(jsonRequest);
-            Log.d("log", "request added to the queue");
-        }
-    }
 
 //Actionbar navigation item select listener
     @Override

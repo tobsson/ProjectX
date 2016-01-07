@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -79,8 +80,11 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+               // WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+
 
         setContentView(R.layout.activity_piechart);
 
@@ -145,7 +149,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
         mChart.setCenterText("TreeTalk");
 
-        setData(3, 100);
+        setData(1, 100);
 
         mChart.animateY(2000, Easing.EasingOption.EaseOutBack);
         // distChart.spin(2000, 0, 360);
@@ -261,6 +265,8 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         mChart.animateY(2000, Easing.EasingOption.EaseInOutQuad);
     }
 
+    
+
 
     public void onButtonClick(View v) {
 
@@ -351,6 +357,7 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
                         // undo all highlights
                         mChart.highlightValues(null);
                         mChart.setCenterText("TreeTalk");
+
                         mChart.getLegend().setEnabled(false);
                         mChart.invalidate();
 
