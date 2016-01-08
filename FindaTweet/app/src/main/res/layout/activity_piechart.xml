@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/blue_color">
+    android:background="@drawable/blue_background_new">
 
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/holo_blue_dark" />
+        android:background="@android:color/transparent" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart1"
@@ -28,7 +28,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/label"
-        android:background="@drawable/blue_screen"
+        android:background="@android:color/transparent"
         android:layout_below="@+id/searchView" />
 
     <android.support.v7.widget.Toolbar
@@ -52,14 +52,22 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/blue_screen" />
+        android:background="@android:color/transparent" />
 
     <SearchView
+        android:id="@+id/searchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:layout_centerHorizontal="true"
-        android:queryHint="aaaaaa"
-        android:layout_below="@+id/my_toolbar" />
+        android:background="@drawable/way2blogging_searchbox1"
+        android:iconifiedByDefault="false"
+        android:padding="2dp"
+        android:queryHint="Write something..."
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#e1e3e5"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
