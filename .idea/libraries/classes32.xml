@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="classes32">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/GoogleMaps/app/build/intermediates/exploded-aar/com.android.support/design/23.1.0/jars/classes.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
