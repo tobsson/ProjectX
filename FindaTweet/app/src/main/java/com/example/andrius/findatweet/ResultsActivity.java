@@ -1,7 +1,7 @@
 package com.example.andrius.findatweet;
 
 /**
- * Created by andrius on 2015-12-17.
+ * By Christos and Andrius
  */
 
 import android.app.ProgressDialog;
@@ -156,7 +156,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
 
 
         tweetsView = (TextView)findViewById(R.id.tweetView);
-
+        //fetching the data from the previous activity
         bundle = getIntent().getExtras();
         neutral = Integer.parseInt(bundle.getString("neutral"));
         positive = Integer.parseInt(bundle.getString("positive"));
@@ -170,7 +170,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         keyword = bundle.getString("keyword");
         locIndex = bundle.getInt("index");
         actionBar.setSelectedNavigationItem(locIndex);
-
+        
+        //Preparing the data for the chart
         yData = new float[]{ positive, neutral, negative};
         //tweetsView = (TextView)findViewById(R.id.tweetView);
         tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" +user3 + "\n" + tweet3);
@@ -229,30 +230,16 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         l.setYEntrySpace(10f);
 
 
-        /*View.OnClickListener buttonListener = new View.OnClickListener() {
-            boolean clicked = false;
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent (ResultsActivity.this, DetailedStatistics.class);
-                startActivity(i);
-            }
-        };
-        chartBtn.setOnClickListener(buttonListener);*/
+       
 
     }
 
-    /*public void onButtonClick(View v) {
-        //open SearchResultsActivity when search button is clicked
-        if (v.getId() == R.id.timelineBtn) {
-            Intent i = new Intent(ResultsActivity.this, DetailedStatistics.class);
-            startActivity(i);
-        }
-    }*/
+   
 
 
 
 
-
+        //Method for sending the data to the PieChart and setting the Charts details
     private void setData(int count, float range) {
 
         float mult = range;
@@ -459,8 +446,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
 
                     // undo all highlights
                     mChart.highlightValues(null);
-                    mChart.setCenterText("TreeTalk");
-
+                    mChart.setCenterText("What do people think about " + keyword + "?");
+                
                     mChart.getLegend().setEnabled(false);
                     mChart.invalidate();
 
@@ -493,7 +480,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
             }
         });
         jsonRequest.setTag(REQUEST_TAG);
-        int socketTimeout = 5000;//5 seconds - change to what you want
+        //Setting the timeout so the app doesn't crash in case the search takes too long
+        int socketTimeout = 7000;//7 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsonRequest.setRetryPolicy(policy);
         mQueue.add(jsonRequest);
@@ -550,44 +538,4 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
     }
 
 
-    //
-    // PieData data = distChart.getDataOriginal();
-    //
-    // if (data != null) {
-    //
-    // PieDataSet set = data.getDataSet();
-    //
-    // if (set != null) {
-    //
-    // Entry e = set.getEntryForXIndex(set.getEntryCount() - 1);
-    //
-    // data.removeEntry(e, 0);
-    // // or remove by index
-    // // mData.removeEntry(xIndex, dataSetIndex);
-    //
-    // distChart.notifyDataSetChanged();
-    // distChart.invalidate();
-    // }
-    // }
-    // }
-    //
-    // private void addEntry() {
-    //
-    // PieData data = distChart.getDataOriginal();
-    //
-    // if (data != null) {
-    //
-    // PieDataSet set = data.getDataSet();
-    // // set.addEntry(...);
-    //
-    // data.addEntry(new Entry((float) (Math.random() * 25) + 20f,
-    // set.getEntryCount()), 0);
-    //
-    // // let the chart know it's data has changed
-    // distChart.notifyDataSetChanged();
-    //
-    // // redraw the chart
-    // distChart.invalidate();
-    // }
-    // }
 }
