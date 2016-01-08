@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -577,7 +578,19 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
 
     @Override
     public boolean onSuggestionClick(int position) {
-        return false;
+
+        //When user will tap on suggested word ,onSuggestionClick(int position) will be called for that.
+        // We get the SQLiteCursor object from the SearchView's
+        // adapter (SuggestionSimpleCursorAdapter)
+        // and get the Suggestion text from it, set the suggestion text in SearchView object
+
+
+        SQLiteCursor cursor = (SQLiteCursor) searchView.getSuggestionsAdapter().getItem(position);
+        int indexColumnSuggestion = cursor.getColumnIndex(SuggestionsDatabase.FIELD_SUGGESTION);
+        searchView.setQuery(cursor.getString(indexColumnSuggestion), false);
+
+        return true;
+
     }
 
     @Override
