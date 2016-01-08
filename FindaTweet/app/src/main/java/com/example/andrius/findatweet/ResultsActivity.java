@@ -181,7 +181,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         //Check if tweet is present
         if(this.getIntent().getExtras().containsKey("tweet1")){
         tweet1 = bundle.getString("tweet1");
-            randomTweets += tweet1 + "\n\n";
+            randomTweets += tweet1 + "\n"+"***"+"\n";
         }
 
         //Check if user for tweet is present
@@ -193,7 +193,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         //Check if tweet is present
         if(this.getIntent().getExtras().containsKey("tweet2")) {
             tweet2 = bundle.getString("tweet2");
-            randomTweets += tweet2 + "\n\n";
+            randomTweets += tweet2 + "\n"+"***"+"\n";
         }
 
 

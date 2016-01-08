@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/label"
-        android:text="Tweets"
+        android:text="Sample of Tweets"
         android:textColor="#ffffff"
         android:textStyle="normal|bold"
         android:textSize="22dp"
