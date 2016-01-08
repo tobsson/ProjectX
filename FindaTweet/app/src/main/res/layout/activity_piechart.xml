@@ -2,26 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/blue_color">
 
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/newSearchField"
-        android:layout_alignBottom="@+id/newSearchBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Search"
-        android:id="@+id/newSearchBtn"
-        android:onClick="onButtonClick"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +19,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/holo_blue_light" />
+        android:background="@android:color/holo_blue_dark" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart1"
@@ -45,8 +28,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/label"
-        android:background="@android:color/holo_blue_dark"
-        android:layout_below="@+id/newSearchField" />
+        android:background="@drawable/blue_screen"
+        android:layout_below="@+id/searchView" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -69,7 +52,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/holo_blue_dark" />
+        android:background="@drawable/blue_screen" />
 
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView"
+        android:layout_centerHorizontal="true"
+        android:queryHint="aaaaaa"
+        android:layout_below="@+id/my_toolbar" />
 
 </RelativeLayout>

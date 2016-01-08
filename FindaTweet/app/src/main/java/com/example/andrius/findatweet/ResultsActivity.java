@@ -5,6 +5,8 @@ package com.example.andrius.findatweet;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.view.WindowManager;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -51,7 +54,8 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ResultsActivity extends FragmentActivity implements View.OnKeyListener {
+public class ResultsActivity extends FragmentActivity implements View.OnKeyListener, SearchView.OnQueryTextListener,
+        SearchView.OnSuggestionListener   {
 
     private PieChart mChart;
     //private SeekBar mSeekBarX, mSeekBarY;
@@ -77,19 +81,31 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
     private String keyword;
     Bundle bundle;
 
+    private SuggestionsDatabase database;
+    private SearchView searchView;
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-               // WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-
-
+        //getWindow().setFlags(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE,
+        // WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_piechart);
 
+        database = new SuggestionsDatabase(this);
+        searchView = (SearchView) findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(this);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnSuggestionListener(this);
+
+
+
+
+
+
+
         tweetsView = (TextView)findViewById(R.id.tweetView);
-        searchField = (EditText)findViewById(R.id.newSearchField);
+
         bundle = getIntent().getExtras();
         neutral = Integer.parseInt(bundle.getString("neutral"));
         positive = Integer.parseInt(bundle.getString("positive"));
@@ -265,130 +281,172 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         mChart.animateY(2000, Easing.EasingOption.EaseInOutQuad);
     }
 
-    
-
-
-    public void onButtonClick(View v) {
 
 
 
-        if (v.getId() == R.id.newSearchBtn) {
 
-            mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
-            mQueue.start();
-            final String keyword = searchField.getText().toString().replaceAll(" ", "_").toLowerCase();
-            String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
-            final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject response) {
-
-
-                    try {
-                        neutral = Integer.parseInt(((JSONObject) response).getString
-                                ("neutral").toString());
-
-                        negative =  Integer.parseInt(((JSONObject) response).getString
-                                ("negative").toString());
-                        positive =  Integer.parseInt(((JSONObject) response).getString
-                                ("positive").toString());
-                        tweet1 =  ((JSONObject) response).getString
-                                ("11").toString();
-                        tweet2 =  ((JSONObject) response).getString
-                                ("12").toString();
-                        tweet3 =  ((JSONObject) response).getString
-                                ("13").toString();
-                        user1 =  ((JSONObject) response).getString
-                                ("1").toString();
-                        user2 =  ((JSONObject) response).getString
-                                ("2").toString();
-                        user3 =  ((JSONObject) response).getString
-                                ("3").toString();
-                        //tweetView.setText(neutral+" "+positive + " "+ negative);
-                        Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " MEW"+ tweet3);
-
-                        yData = new float[]{ positive, neutral, negative};
-                        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
-                        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-                        for (int i = 0; i < yData.length; i++) {
-                            yVals1.add(new Entry(yData[i], i));
-                        }
-                        PieDataSet dataSet = new PieDataSet(yVals1, "Opinion Results");
-                        dataSet.setSliceSpace(3f);
-                        dataSet.setSelectionShift(5f);
-                        ArrayList<String> xVals = new ArrayList<String>();
-
-                        for (int i = 0; i < xData.length; i++)
-                            xVals.add(xData[i]);
-                        PieData data = new PieData(xVals, dataSet);
-                        dataSet.setSliceSpace(3f);
-                        dataSet.setSelectionShift(5f);
-
-                        // add a lot of colors
-
-                        ArrayList<Integer> colors = new ArrayList<Integer>();
-
-                        for (int c : ColorTemplate.COLORFUL_COLORS)
-                            colors.add(c);
-
-                        for (int c : ColorTemplate.JOYFUL_COLORS)
-                            colors.add(c);
-
-                        for (int c : ColorTemplate.COLORFUL_COLORS)
-                            colors.add(c);
-
-                        for (int c : ColorTemplate.LIBERTY_COLORS)
-                            colors.add(c);
-
-                        for (int c : ColorTemplate.PASTEL_COLORS)
-                            colors.add(c);
-
-                        colors.add(ColorTemplate.getHoloBlue());
-
-                        dataSet.setColors(colors);
-
-
-
-                        data.setValueTextSize(20f);
-                        data.setValueTextColor(Color.WHITE);
-                        data.setValueTypeface(tf);
-                        mChart.setData(data);
-
-                        // undo all highlights
-                        mChart.highlightValues(null);
-                        mChart.setCenterText("TreeTalk");
-
-                        mChart.getLegend().setEnabled(false);
-                        mChart.invalidate();
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //tweetView.setText(error.getMessage());
-                    Toast.makeText(ResultsActivity.this, "No Results found. Please search another term.",
-                            Toast.LENGTH_LONG).show();
-                    Log.d("log", "error");
-                    Log.d("log", "error");
-                }
-            });
-            jsonRequest.setTag(REQUEST_TAG);
-            int socketTimeout = 5000;//5 seconds - change to what you want
-            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-            jsonRequest.setRetryPolicy(policy);
-            mQueue.add(jsonRequest);
-            Log.d("log", "request added to the queue");
-        }
-    }
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+
+        mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
+        mQueue.start();
+        final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
+        String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
+        final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    neutral = Integer.parseInt(((JSONObject) response).getString
+                            ("neutral").toString());
+
+                    negative =  Integer.parseInt(((JSONObject) response).getString
+                            ("negative").toString());
+                    positive =  Integer.parseInt(((JSONObject) response).getString
+                            ("positive").toString());
+                    tweet1 =  ((JSONObject) response).getString
+                            ("11").toString();
+                    tweet2 =  ((JSONObject) response).getString
+                            ("12").toString();
+                    tweet3 =  ((JSONObject) response).getString
+                            ("13").toString();
+                    user1 =  ((JSONObject) response).getString
+                            ("1").toString();
+                    user2 =  ((JSONObject) response).getString
+                            ("2").toString();
+                    user3 =  ((JSONObject) response).getString
+                            ("3").toString();
+                    //tweetView.setText(neutral+" "+positive + " "+ negative);
+                    Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " MEW"+ tweet3);
+
+                    yData = new float[]{ positive, neutral, negative};
+                    tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
+                    ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+                    for (int i = 0; i < yData.length; i++) {
+                        yVals1.add(new Entry(yData[i], i));
+                    }
+                    PieDataSet dataSet = new PieDataSet(yVals1, "Opinion Results");
+                    dataSet.setSliceSpace(3f);
+                    dataSet.setSelectionShift(5f);
+                    ArrayList<String> xVals = new ArrayList<String>();
+
+                    for (int i = 0; i < xData.length; i++)
+                        xVals.add(xData[i]);
+                    PieData data = new PieData(xVals, dataSet);
+                    dataSet.setSliceSpace(3f);
+                    dataSet.setSelectionShift(5f);
+
+                    // add a lot of colors
+
+                    ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                    for (int c : ColorTemplate.COLORFUL_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.JOYFUL_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.COLORFUL_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.LIBERTY_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.PASTEL_COLORS)
+                        colors.add(c);
+
+                    colors.add(ColorTemplate.getHoloBlue());
+
+                    dataSet.setColors(colors);
+
+
+
+                    data.setValueTextSize(20f);
+                    data.setValueTextColor(Color.WHITE);
+                    data.setValueTypeface(tf);
+                    mChart.setData(data);
+
+                    // undo all highlights
+                    mChart.highlightValues(null);
+                    mChart.setCenterText("TreeTalk");
+
+                    mChart.getLegend().setEnabled(false);
+                    mChart.invalidate();
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //tweetView.setText(error.getMessage());
+                Toast.makeText(ResultsActivity.this, "No Results found. Please search another term.",
+                        Toast.LENGTH_LONG).show();
+                Log.d("log", "error");
+                Log.d("log", "error");
+            }
+        });
+        jsonRequest.setTag(REQUEST_TAG);
+        int socketTimeout = 5000;//5 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonRequest.setRetryPolicy(policy);
+        mQueue.add(jsonRequest);
+        Log.d("log", "request added to the queue");
+
+        long result = database.insertSuggestion(query);
+        return result != -1;
+    }
+
+
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        //If the user writes a string for example "Hel" or "H" in SearchView the onQueryTextChange()
+        // will be called and then search for this keyword  will be performed in Android SQLiteDatabase (SuggestionDatabase).
+        // If "Hel" or "H" matches "Hello" , displays the results of
+        // query by setting the returned Cursor in SuggestionSimpleCursorAdapter
+        // and then set this adapter in SearchView.
+
+        Cursor cursor = database.getSuggestions(newText);
+        if(cursor.getCount() != 0)
+        {
+            String[] columns = new String[] {SuggestionsDatabase.FIELD_SUGGESTION };
+            int[] columnTextId = new int[] { android.R.id.text1};
+
+            SuggestionSimpleCursorAdapter simple = new SuggestionSimpleCursorAdapter(getBaseContext(),
+                    android.R.layout.simple_list_item_1, cursor,
+                    columns , columnTextId
+                    , 0);
+
+            searchView.setSuggestionsAdapter(simple);
+            return true;
+        }
+        else
+        {
+            return false;
+
+        }}
+
+    @Override
+    public boolean onSuggestionSelect(int position) {
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int position) {
         return false;
     }
 
