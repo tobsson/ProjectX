@@ -92,6 +92,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
     private String user2;
     private String user3;
     private String keyword;
+    private String randomTweets;
+    private String randomTweets2;
     private int locIndex;
     Bundle bundle;
 
@@ -160,19 +162,49 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         neutral = Integer.parseInt(bundle.getString("neutral"));
         positive = Integer.parseInt(bundle.getString("positive"));
         negative = Integer.parseInt(bundle.getString("negative"));
-        tweet1 = bundle.getString("tweet1");
-        tweet2 = bundle.getString("tweet2");
-        tweet3 = bundle.getString("tweet3");
+
+        //Check if user for tweet is present
+        if(this.getIntent().getExtras().containsKey("user1")){
         user1 = bundle.getString("user1");
-        user2 = bundle.getString("user2");
+        randomTweets += user1 + "\n";
+        }
+
+        //Check if tweet is present
+        if(this.getIntent().getExtras().containsKey("tweet1")){
+        tweet1 = bundle.getString("tweet1");
+            randomTweets += tweet1 + "\n\n";
+        }
+
+        //Check if user for tweet is present
+        if(this.getIntent().getExtras().containsKey("user2")){
+            user2 = bundle.getString("user2");
+            randomTweets += user2 + "\n";
+        }
+
+        //Check if tweet is present
+        if(this.getIntent().getExtras().containsKey("tweet2")) {
+            tweet2 = bundle.getString("tweet2");
+            randomTweets += tweet2 + "\n\n";
+        }
+
+
         user3 = bundle.getString("user3");
+        randomTweets+= user3 +"\n";
+        tweet3 = bundle.getString("tweet3");
+        randomTweets+= tweet3;
+
         keyword = bundle.getString("keyword");
         locIndex = bundle.getInt("index");
         actionBar.setSelectedNavigationItem(locIndex);
 
         yData = new float[]{positive, neutral, negative};
         //tweetsView = (TextView)findViewById(R.id.tweetView);
-        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
+
+        //Set the randomtweets stored in the String "randomTweets" in textView
+        tweetsView.setText(randomTweets);
+        randomTweets="";
+
+        //tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
 
 
         mChart = (PieChart) findViewById(R.id.chart1);
@@ -367,23 +399,58 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
                             ("negative").toString());
                     positive =  Integer.parseInt(((JSONObject) response).getString
                             ("positive").toString());
-                    tweet1 =  ((JSONObject) response).getString
-                            ("11").toString();
-                    tweet2 =  ((JSONObject) response).getString
-                            ("12").toString();
-                    tweet3 =  ((JSONObject) response).getString
-                            ("13").toString();
-                    user1 =  ((JSONObject) response).getString
-                            ("1").toString();
-                    user2 =  ((JSONObject) response).getString
-                            ("2").toString();
+
+                    //Make sure tweet user is present
+                    if(((JSONObject) response).has("1")) {
+                        user1 =  ((JSONObject) response).getString
+                                ("1").toString();
+                        //And add to String
+                        randomTweets2 += user1 + "\n";
+                    }
+
+                    //Make sure tweet is present
+                    if(((JSONObject) response).has("11")) {
+                        tweet1 =  ((JSONObject) response).getString
+                                ("11").toString();
+                        //And add to String
+                        randomTweets2 += tweet1 +"\n\n";
+                    }
+
+                    //Make sure second tweet user is present
+                    if(((JSONObject) response).has("2")) {
+                        user2 =  ((JSONObject) response).getString
+                                ("2").toString();
+                        //And add to String
+                        randomTweets2 += user2 +"\n";
+                    }
+
+                    //Make sure second tweet is present
+                    if(((JSONObject) response).has("12")) {
+                        tweet2 =  ((JSONObject) response).getString
+                                ("12").toString();
+                        //And add to String
+                        randomTweets2 += tweet2 +"\n\n";
+                    }
+
                     user3 =  ((JSONObject) response).getString
                             ("3").toString();
+                    //And add to String
+                    randomTweets2 += user3 +"\n";
+
+                    tweet3 =  ((JSONObject) response).getString
+                            ("13").toString();
+                    //And add to String
+                    randomTweets2 += tweet3;
+
+
                     //tweetView.setText(neutral+" "+positive + " "+ negative);
                     Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " MEW"+ tweet3);
 
                     yData = new float[]{ positive, neutral, negative};
-                    tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
+
+                    tweetsView.setText(randomTweets2);
+                    randomTweets2="";
+                    //tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
                     ArrayList<Entry> yVals1 = new ArrayList<Entry>();
                     for (int i = 0; i < yData.length; i++) {
                         yVals1.add(new Entry(yData[i], i));
