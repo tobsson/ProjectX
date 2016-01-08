@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
 
 
+
+
                 actionBar = getSupportActionBar();
 
             // Hide the action bar title
@@ -188,6 +190,9 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
                 return true;
             }
+
+
+
 
 
 

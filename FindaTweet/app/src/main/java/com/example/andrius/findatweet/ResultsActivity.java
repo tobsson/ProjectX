@@ -126,8 +126,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         actionBar = getSupportActionBar();
 
 
-        // Hide the action bar title
-        actionBar.setDisplayShowTitleEnabled(false);
+
+        // Get action bar title
+        actionBar.setDisplayShowTitleEnabled(true);
+        setTitle("TreeTalk");
         // Enabling Spinner dropdown navigation
         actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_LIST);
         //Spinner title navigation data
