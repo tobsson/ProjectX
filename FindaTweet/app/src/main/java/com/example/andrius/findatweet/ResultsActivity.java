@@ -116,7 +116,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         setContentView(R.layout.activity_piechart);
 
 
-
         database = new SuggestionsDatabase(this);
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(this);
@@ -125,7 +124,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
 
 
         actionBar = getSupportActionBar();
-
 
 
         // Hide the action bar title
@@ -147,7 +145,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
 
 
-
         // title drop down adapter
         adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
 
@@ -155,7 +152,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         actionBar.setListNavigationCallbacks(adapter, this);
 
 
-        tweetsView = (TextView)findViewById(R.id.tweetView);
+        tweetsView = (TextView) findViewById(R.id.tweetView);
 
         bundle = getIntent().getExtras();
         neutral = Integer.parseInt(bundle.getString("neutral"));
@@ -171,21 +168,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         locIndex = bundle.getInt("index");
         actionBar.setSelectedNavigationItem(locIndex);
 
-        yData = new float[]{ positive, neutral, negative};
+        yData = new float[]{positive, neutral, negative};
         //tweetsView = (TextView)findViewById(R.id.tweetView);
-        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" +user3 + "\n" + tweet3);
+        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
 
-        //tvX = (TextView) findViewById(R.id.tvXMax);
-        //tvY = (TextView) findViewById(R.id.tvYMax);
 
-        // mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
-        //mSeekBarY = (SeekBar) findViewById(R.id.seekBar2);
-
-        // mSeekBarY.setProgress(10);
-
-        // mSeekBarX.setOnSeekBarChangeListener(this);
-        // mSeekBarY.setOnSeekBarChangeListener(this);
-        //chartBtn = (Button) findViewById(R.id.chartBtn);
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
         mChart.setDescription("");
@@ -216,7 +203,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         // add a selection listener
         //mChart.setOnChartValueSelectedListener(this);
 
-        mChart.setCenterText("TreeTalk");
+        mChart.setCenterText("What do people think about " + keyword + "?");
 
         setData(1, 100);
 
@@ -229,25 +216,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         l.setYEntrySpace(10f);
 
 
-        /*View.OnClickListener buttonListener = new View.OnClickListener() {
-            boolean clicked = false;
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent (ResultsActivity.this, DetailedStatistics.class);
-                startActivity(i);
-            }
-        };
-        chartBtn.setOnClickListener(buttonListener);*/
-
     }
-
-    /*public void onButtonClick(View v) {
-        //open SearchResultsActivity when search button is clicked
-        if (v.getId() == R.id.timelineBtn) {
-            Intent i = new Intent(ResultsActivity.this, DetailedStatistics.class);
-            startActivity(i);
-        }
-    }*/
 
 
 
@@ -459,7 +428,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
 
                     // undo all highlights
                     mChart.highlightValues(null);
-                    mChart.setCenterText("TreeTalk");
+                    mChart.setCenterText("What do people think about " + keyword + "?");
 
                     mChart.getLegend().setEnabled(false);
                     mChart.invalidate();
@@ -550,44 +519,5 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
     }
 
 
-    //
-    // PieData data = distChart.getDataOriginal();
-    //
-    // if (data != null) {
-    //
-    // PieDataSet set = data.getDataSet();
-    //
-    // if (set != null) {
-    //
-    // Entry e = set.getEntryForXIndex(set.getEntryCount() - 1);
-    //
-    // data.removeEntry(e, 0);
-    // // or remove by index
-    // // mData.removeEntry(xIndex, dataSetIndex);
-    //
-    // distChart.notifyDataSetChanged();
-    // distChart.invalidate();
-    // }
-    // }
-    // }
-    //
-    // private void addEntry() {
-    //
-    // PieData data = distChart.getDataOriginal();
-    //
-    // if (data != null) {
-    //
-    // PieDataSet set = data.getDataSet();
-    // // set.addEntry(...);
-    //
-    // data.addEntry(new Entry((float) (Math.random() * 25) + 20f,
-    // set.getEntryCount()), 0);
-    //
-    // // let the chart know it's data has changed
-    // distChart.notifyDataSetChanged();
-    //
-    // // redraw the chart
-    // distChart.invalidate();
-    // }
-    // }
+
 }
