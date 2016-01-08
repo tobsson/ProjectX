@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search for a Hashtag"
+        android:text="Search tweets to get opinions..."
         android:textColor="@android:color/white"
 
         android:textSize="19sp"
@@ -25,16 +25,19 @@
         android:textColor="@android:color/white"
 
         android:layout_marginTop="20dp"
-        android:text="Use #hashtag"/>
+        android:text="Use any keyword/keywords"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="and press"
+        android:text="press Enter to view results"
         android:textColor="@android:color/white"
 
         android:textSize="19sp"
         android:layout_marginTop="30dp"/>
+
+
+
 
     <ImageView
         android:layout_width="137dp"
@@ -43,5 +46,13 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/search_white_btn" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="PS. You can also specify a city for your search in the top-left actionbar"
+        android:textColor="@android:color/white"
 
+        android:textSize="14sp"
+        android:layout_marginTop="60dp"/>
 </LinearLayout>
