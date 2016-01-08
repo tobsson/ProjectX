@@ -1,6 +1,7 @@
 package com.example.andrius.findatweet;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             // Navigation adapter
          private TitleNavigationAdapter adapter;
 
-private ProgressBar spinner;
+
 
     private SuggestionsDatabase database;
     private SearchView searchView;
@@ -93,8 +94,7 @@ private ProgressBar spinner;
                 mAdView.loadAd(adRequest);
 
 
-                spinner = (ProgressBar)findViewById(R.id.progressBar1);
-                spinner.setVisibility(View.GONE);
+
 
 
 
@@ -223,9 +223,12 @@ private ProgressBar spinner;
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
+                //Loading dialog window when searching tweets
+                final ProgressDialog ringProgressDialog = ProgressDialog.show(MainActivity.this, "Please be patient ...", "Analyzing tweets ...", true);
+                ringProgressDialog.setCancelable(false);
+                ringProgressDialog.setIndeterminate(true);
 
-                //Shows loading spinner while search is in progress
-                spinner.setVisibility(View.VISIBLE);
+
                 index = actionBar.getSelectedNavigationIndex();
 
                 Log.d("LOOOOG", "INDEX"+ index);
@@ -290,10 +293,12 @@ private ProgressBar spinner;
                                 bundle.putString("tweet2", tweet2);
                                 bundle.putString("tweet3", tweet3);
                                 bundle.putString("keyword", keyword);
-
+                                bundle.putInt("index", index);
                                 //Add the bundle to the intent
                                 i.putExtras(bundle);
-                                spinner.setVisibility(View.GONE);
+
+                                ringProgressDialog.dismiss();
+
                                 //Fire that second activity
                                 startActivity(i);
 
@@ -305,7 +310,9 @@ private ProgressBar spinner;
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            spinner.setVisibility(View.GONE);
+
+                            ringProgressDialog.dismiss();
+
                             //tweetView.setText(error.getMessage());
                             Toast.makeText(MainActivity.this, "No Results found. Please search another term, or check your internet connection",
                                     Toast.LENGTH_LONG).show();

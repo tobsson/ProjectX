@@ -4,6 +4,7 @@ package com.example.andrius.findatweet;
  * Created by andrius on 2015-12-17.
  */
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -55,8 +58,17 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ResultsActivity extends FragmentActivity implements View.OnKeyListener, SearchView.OnQueryTextListener,
-        SearchView.OnSuggestionListener   {
+public class ResultsActivity extends AppCompatActivity implements View.OnKeyListener, SearchView.OnQueryTextListener,
+        SearchView.OnSuggestionListener,  android.support.v7.app.ActionBar.OnNavigationListener   {
+
+    // action bar
+    private android.support.v7.app.ActionBar actionBar;
+
+    // Title navigation Spinner data
+    private ArrayList<SpinnerNavItem> navSpinner;
+
+    // Navigation adapter
+    private TitleNavigationAdapter adapter;
 
     private PieChart mChart;
     //private SeekBar mSeekBarX, mSeekBarY;
@@ -80,7 +92,17 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
     private String user2;
     private String user3;
     private String keyword;
+    private int locIndex;
     Bundle bundle;
+
+    //Stores values for location search
+    private float longtitude;
+    private float latitude;
+
+    //Variable sotring the index of the navSpinner
+    private int index;
+
+
 
     private SuggestionsDatabase database;
     private SearchView searchView;
@@ -93,6 +115,8 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         // WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_piechart);
 
+
+
         database = new SuggestionsDatabase(this);
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(this);
@@ -100,9 +124,35 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         searchView.setOnSuggestionListener(this);
 
 
+        actionBar = getSupportActionBar();
 
 
 
+        // Hide the action bar title
+        actionBar.setDisplayShowTitleEnabled(false);
+        // Enabling Spinner dropdown navigation
+        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_LIST);
+        //Spinner title navigation data
+        navSpinner = new ArrayList<SpinnerNavItem>();
+        navSpinner.add(new SpinnerNavItem("Global", R.drawable.globe_white));
+        navSpinner.add(new SpinnerNavItem("New York", R.drawable.usa));
+        navSpinner.add(new SpinnerNavItem("Stockholm", R.drawable.sweden));
+        navSpinner.add(new SpinnerNavItem("Rio De Jeneiro", R.drawable.brazil));
+        navSpinner.add(new SpinnerNavItem("Gothenburg", R.drawable.sweden));
+        navSpinner.add(new SpinnerNavItem("Helsinki", R.drawable.finland));
+        navSpinner.add(new SpinnerNavItem("Copenhagen", R.drawable.denmark));
+        navSpinner.add(new SpinnerNavItem("Paris", R.drawable.france));
+        navSpinner.add(new SpinnerNavItem("Amsterdam", R.drawable.netherlands));
+        navSpinner.add(new SpinnerNavItem("London", R.drawable.england));
+        navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
+
+
+
+        // title drop down adapter
+        adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
+
+        // assigning the spinner navigation
+        actionBar.setListNavigationCallbacks(adapter, this);
 
 
         tweetsView = (TextView)findViewById(R.id.tweetView);
@@ -118,6 +168,8 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         user2 = bundle.getString("user2");
         user3 = bundle.getString("user3");
         keyword = bundle.getString("keyword");
+        locIndex = bundle.getInt("index");
+        actionBar.setSelectedNavigationItem(locIndex);
 
         yData = new float[]{ positive, neutral, negative};
         //tweetsView = (TextView)findViewById(R.id.tweetView);
@@ -300,10 +352,37 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
         imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
 
+        //Loading dialog window when searching tweets
+        final ProgressDialog ringProgressDialog = ProgressDialog.show(ResultsActivity.this, "Please be patient ...", "Analyzing tweets ...", true);
+        ringProgressDialog.setCancelable(false);
+        ringProgressDialog.setIndeterminate(true);
+
+        //Gets the index of actionbar selection
+        index = actionBar.getSelectedNavigationIndex();
+
+        Log.d("LOOOOG", "INDEX"+ index);
+
+        //Getting the longtitude + latitude of selected item in navSpinner
+        longtitude = navSpinner.get(index).getLongtitude();
+        latitude = navSpinner.get(index).getLatitude();
+
+        Log.d("LOOOOG", "longtitude"+ longtitude);
+
         mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
         mQueue.start();
         final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
-        String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
+
+        String url = "";
+        //If index is 0 its a global search
+        if (index == 0){
+            url = "http://83.248.73.168:8080/findtweets?query="+keyword;
+            Log.d("LOOOOG url", "URL " + url);
+            //If index is other than 0 the location search query is used with long/lat parameters within the http request
+        } else {
+            url = "http://83.248.73.168:8080/findtweets?query="+keyword + "&loc="+ latitude +","+longtitude+",20km";
+            Log.d("LOOOOG url", "URL " + url);}
+
+        //String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
         final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
             @Override
@@ -373,7 +452,6 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
                     dataSet.setColors(colors);
 
 
-
                     data.setValueTextSize(20f);
                     data.setValueTextColor(Color.WHITE);
                     data.setValueTypeface(tf);
@@ -388,6 +466,13 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
 
 
+                    //Remove the progress dialog window when method is completely finished
+                    ringProgressDialog.dismiss();
+                    searchView.clearFocus();
+                    // Hide the onscreen keyboard
+                    //InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                   // imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -397,7 +482,11 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
             @Override
             public void onErrorResponse(VolleyError error) {
                 //tweetView.setText(error.getMessage());
-                Toast.makeText(ResultsActivity.this, "No Results found. Please search another term.",
+
+                //Hide progress dialog
+                ringProgressDialog.dismiss();
+
+                Toast.makeText(ResultsActivity.this, "No Results found. Please search another term, or check your internet connection.",
                         Toast.LENGTH_LONG).show();
                 Log.d("log", "error");
                 Log.d("log", "error");
@@ -452,6 +541,11 @@ public class ResultsActivity extends FragmentActivity implements View.OnKeyListe
 
     @Override
     public boolean onSuggestionClick(int position) {
+        return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         return false;
     }
 

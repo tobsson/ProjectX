@@ -31,17 +31,6 @@
         android:background="@android:color/transparent"
         android:layout_below="@+id/searchView" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
     <TextView
@@ -64,10 +53,11 @@
         android:queryHint="Write something..."
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#e1e3e5"
-        android:layout_below="@+id/my_toolbar"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
 
 </RelativeLayout>

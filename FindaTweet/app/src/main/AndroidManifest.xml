@@ -35,8 +35,8 @@
             android:name=".ResultsActivity"
             android:label="TreeTalk"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.ActionBar">
+            android:windowSoftInputMode="stateHidden|adjustPan">
+
 
 
             <intent-filter>
