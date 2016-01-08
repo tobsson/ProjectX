@@ -13,6 +13,8 @@ public class SpinnerNavItem {
     public SpinnerNavItem(String title, int icon){
         this.title = title;
         this.icon = icon;
+        
+        //Hardcoded cities and coordinates for the choice of location
         if(title == "New York") {
             longtitude = (float) -74.0059700;
             latitude = (float) 40.7142700;
