@@ -1,3 +1,4 @@
+//By Andrius and Christos
 package com.example.andrius.findatweet;
 
 import android.app.ActionBar;
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 latitude = navSpinner.get(index).getLatitude();
                 Log.d("LOOOOG", "longtitude"+ longtitude);
 
-
+                //Creating the connection to the server 
                     mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
                     mQueue.start();
                     final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
@@ -247,12 +248,12 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                     } else {
                         url = "http://83.248.73.168:8080/findtweets?query="+keyword + "&loc="+ latitude +","+longtitude+",20km";
                         Log.d("LOOOOG url", "URL " + url);}
-
+                        //Sending the request with the necessary data to the miner in the server
                     final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
-
+                        //Getting the response and storing the data in local variables
 
                             try {
                                 neutral = ((JSONObject) response).getString
@@ -320,7 +321,8 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                         }
                     });
                     jsonRequest.setTag(REQUEST_TAG);
-                    int socketTimeout = 7000;//5 seconds - change to what you want
+                    //Setting a timeout so the app doesn't crash in case the search takes too long
+                    int socketTimeout = 7000;//7 seconds - change to what you want
                     RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                     jsonRequest.setRetryPolicy(policy);
                     mQueue.add(jsonRequest);
