@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/label"
         android:text="Tweets"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textStyle="normal|bold"
         android:textSize="22dp"
         android:layout_above="@+id/tweetView"
@@ -19,7 +19,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/transparent" />
+        android:background="#625edb" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart1"
@@ -41,7 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/white" />
 
     <SearchView
         android:id="@+id/searchView"

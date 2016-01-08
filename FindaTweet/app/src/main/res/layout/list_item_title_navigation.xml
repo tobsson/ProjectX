@@ -2,6 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    android:layout_gravity="left"
+
+
     android:padding="5dp" >
 
     <ImageView android:id="@+id/imgIcon"
@@ -10,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/sweden"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         />
 
     <TextView android:id="@+id/txtTitle"
