@@ -233,6 +233,10 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
 
                             try {
+
+                                //Create the bundle
+                                Bundle bundle = new Bundle();
+
                                 neutral = ((JSONObject) response).getString
                                         ("neutral").toString();
 
@@ -240,38 +244,59 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                                         ("negative").toString();
                                 positive =  ((JSONObject) response).getString
                                         ("positive").toString();
+
+                                //Make sure third tweet is present
+                                if(((JSONObject) response).has("11")) {
                                 tweet1 =  ((JSONObject) response).getString
                                         ("11").toString();
+                                    //And add to bundle
+                                    bundle.putString("tweet1", tweet1);
+                                }
+                                //Make sure second tweet is present
+                                if(((JSONObject) response).has("12")) {
                                 tweet2 =  ((JSONObject) response).getString
                                         ("12").toString();
+                                    //And add to bundle
+                                    bundle.putString("tweet2", tweet2);}
+
+
                                 tweet3 =  ((JSONObject) response).getString
                                         ("13").toString();
+
+                                //Make sure third tweet user is present
+                                if(((JSONObject) response).has("1")) {
                                 user1 =  ((JSONObject) response).getString
                                         ("1").toString();
+                                    //And add to bundle
+                                    bundle.putString("user1", user1);
+                                }
+                                //Make sure second tweet user is present
+                                if(((JSONObject) response).has("2")) {
                                 user2 =  ((JSONObject) response).getString
                                         ("2").toString();
+                                    //And add to bundle
+                                    bundle.putString("user2", user2);
+                                }
+
                                 user3 =  ((JSONObject) response).getString
                                         ("3").toString();
+
                                 //tweetView.setText(neutral+" "+positive + " "+ negative);
                                 Log.d("log", "that worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " NEW"+ tweet3);
 
                                 Intent i = new Intent(MainActivity.this, ResultsActivity.class);
 
-                                //Create the bundle
-                                Bundle bundle = new Bundle();
 
-                                //Add your data to bundle
+
+                                //Add remaining data from json to bundle
                                 bundle.putString("neutral", neutral);
                                 bundle.putString("negative", negative);
                                 bundle.putString("positive", positive);
-                                bundle.putString("user1", user1);
-                                bundle.putString("user2", user2);
                                 bundle.putString("user3", user3);
-                                bundle.putString("tweet1", tweet1);
-                                bundle.putString("tweet2", tweet2);
                                 bundle.putString("tweet3", tweet3);
                                 bundle.putString("keyword", keyword);
                                 bundle.putInt("index", index);
+
                                 //Add the bundle to the intent
                                 i.putExtras(bundle);
 
