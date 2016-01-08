@@ -6,11 +6,14 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.SearchView;
@@ -89,16 +92,20 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
 
 
+/*
 
+                getActionBar().
+                getActionBar().setCustomView(R.layout.custom_actionbar);
+                ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                p.gravity = Gravity.CENTER;
 
-
-
-
+*/
 
                 actionBar = getSupportActionBar();
 
             // Hide the action bar title
             actionBar.setDisplayShowTitleEnabled(false);
+
             // Enabling Spinner dropdown navigation
             actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_LIST);
             //Spinner title navigation data
@@ -114,7 +121,6 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
             navSpinner.add(new SpinnerNavItem("Amsterdam", R.drawable.netherlands));
             navSpinner.add(new SpinnerNavItem("London", R.drawable.england));
             navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
-
 
 
             // title drop down adapter

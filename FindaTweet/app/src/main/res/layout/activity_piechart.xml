@@ -42,7 +42,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@android:color/white" />
-
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
