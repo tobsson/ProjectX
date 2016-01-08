@@ -1,7 +1,5 @@
-//By Andrius and Christos
 package com.example.andrius.findatweet;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,13 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -32,14 +26,13 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 
 
@@ -142,15 +135,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
            search_text.setThreshold(1);
 
 
-
-
-
-
-
-
-
-
-                // Get the shared preferences
+                 // Get the shared preferences
            preferences =  getSharedPreferences("my_preferences", MODE_PRIVATE);
 
         // Check if onboarding_complete is false
@@ -178,15 +163,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
 
          @Override
             public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
 
-             // int id = item.getItemId();
-           // if (id == R.id.action_location) {
-               // startActivity(new Intent(getApplicationContext(),SearchResultsActivity.class));
-                //return true;
-           // }
             return super.onOptionsItemSelected(item);
 
          }
@@ -237,7 +214,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                 latitude = navSpinner.get(index).getLatitude();
                 Log.d("LOOOOG", "longtitude"+ longtitude);
 
-                //Creating the connection to the server 
+
                     mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
                     mQueue.start();
                     final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
@@ -248,12 +225,12 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                     } else {
                         url = "http://83.248.73.168:8080/findtweets?query="+keyword + "&loc="+ latitude +","+longtitude+",20km";
                         Log.d("LOOOOG url", "URL " + url);}
-                        //Sending the request with the necessary data to the miner in the server
+
                     final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
-                        //Getting the response and storing the data in local variables
+
 
                             try {
                                 neutral = ((JSONObject) response).getString
@@ -321,8 +298,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                         }
                     });
                     jsonRequest.setTag(REQUEST_TAG);
-                    //Setting a timeout so the app doesn't crash in case the search takes too long
-                    int socketTimeout = 7000;//7 seconds - change to what you want
+                    int socketTimeout = 7000;//5 seconds - change to what you want
                     RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                     jsonRequest.setRetryPolicy(policy);
                     mQueue.add(jsonRequest);
@@ -362,25 +338,7 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
                     return false;
                 }}
 
-            //public void onButtonClick(View v){
-        //open SearchResultsActivity when search button is clicked
 
-        //if (v.getId() == R.id.btSearch){
-           // Intent i = new Intent (MainActivity.this, SearchResultsActivity.class);
-            //startActivity(i);
-       // }
-    //}
-
-    //@Override
-    //public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        //return false;
-    //}
-
-
-  //@Override
-   //public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        ///Action to be taken after selecting a spinner item
-      //return false;
 
 
 
@@ -392,31 +350,3 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
     }
 }
 
-/*mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mQueue = CustomVolleyRequestQueue.getInstance(getApplicationContext())
-                        .getRequestQueue();
-                String url = "http://mysafeinfo.com/api/data?list=englishmonarchs&format=json";
-                final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        mTextView.setText("Response is: " + response);
-                        try {
-                            mTextView.setText(mTextView.getText() + "\n\n" + ((JSONObject) response).getString
-                                    ("name"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        mTextView.setText(error.getMessage());
-                        Log.d("log", "error");
-                    }
-                });
-                jsonRequest.setTag(REQUEST_TAG);
-                mQueue.add(jsonRequest);
-            }
-        });*/

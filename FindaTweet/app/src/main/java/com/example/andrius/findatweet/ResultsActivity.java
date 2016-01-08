@@ -1,7 +1,7 @@
 package com.example.andrius.findatweet;
 
 /**
- * By Christos and Andrius
+ * Created by andrius on 2015-12-17.
  */
 
 import android.app.ProgressDialog;
@@ -116,7 +116,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         setContentView(R.layout.activity_piechart);
 
 
-
         database = new SuggestionsDatabase(this);
         searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(this);
@@ -125,7 +124,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
 
 
         actionBar = getSupportActionBar();
-
 
 
         // Hide the action bar title
@@ -147,7 +145,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         navSpinner.add(new SpinnerNavItem("Berlin", R.drawable.germany));
 
 
-
         // title drop down adapter
         adapter = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
 
@@ -155,8 +152,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         actionBar.setListNavigationCallbacks(adapter, this);
 
 
-        tweetsView = (TextView)findViewById(R.id.tweetView);
-        //fetching the data from the previous activity
+        tweetsView = (TextView) findViewById(R.id.tweetView);
+
         bundle = getIntent().getExtras();
         neutral = Integer.parseInt(bundle.getString("neutral"));
         positive = Integer.parseInt(bundle.getString("positive"));
@@ -170,13 +167,12 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         keyword = bundle.getString("keyword");
         locIndex = bundle.getInt("index");
         actionBar.setSelectedNavigationItem(locIndex);
-        
-        //Preparing the data for the chart
-        yData = new float[]{ positive, neutral, negative};
-        //tweetsView = (TextView)findViewById(R.id.tweetView);
-        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" +user3 + "\n" + tweet3);
 
-        
+        yData = new float[]{positive, neutral, negative};
+        //tweetsView = (TextView)findViewById(R.id.tweetView);
+        tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
+
+
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
         mChart.setDescription("");
@@ -220,16 +216,12 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         l.setYEntrySpace(10f);
 
 
-       
-
     }
 
-   
 
 
 
 
-        //Method for sending the data to the PieChart and setting the Charts details
     private void setData(int count, float range) {
 
         float mult = range;
@@ -344,8 +336,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
         latitude = navSpinner.get(index).getLatitude();
 
         Log.d("LOOOOG", "longtitude"+ longtitude);
-        
-        //Creating the connection to the server
+
         mQueue = new RequestQueue(new DiskBasedCache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024), new BasicNetwork(new HurlStack()));
         mQueue.start();
         final String keyword = searchView.getQuery().toString().replaceAll(" ", "_").toLowerCase();
@@ -360,13 +351,12 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
             url = "http://83.248.73.168:8080/findtweets?query="+keyword + "&loc="+ latitude +","+longtitude+",20km";
             Log.d("LOOOOG url", "URL " + url);}
 
-        
-        //Sending the data to the miner
+        //String url = "http://83.248.73.168:8080/findtweets?query="+keyword;
         final JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                //Fetching the data from the miner
+
                 try {
                     neutral = Integer.parseInt(((JSONObject) response).getString
                             ("neutral").toString());
@@ -391,13 +381,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
                     Log.d("log", "that shit worked1 " + neutral +" "+positive + " "+ negative + " NEW" + tweet1 +  " NEW" + tweet2 +  " MEW"+ tweet3);
 
                     yData = new float[]{ positive, neutral, negative};
-                    //Displaying the  tweets
                     tweetsView.setText(user1 + "\n" + tweet1 + "\n\n" + user2 + "\n" + tweet2 + "\n\n" + user3 + "\n" + tweet3);
                     ArrayList<Entry> yVals1 = new ArrayList<Entry>();
                     for (int i = 0; i < yData.length; i++) {
                         yVals1.add(new Entry(yData[i], i));
                     }
-                    //Putting the data into the PieChart
                     PieDataSet dataSet = new PieDataSet(yVals1, "Opinion Results");
                     dataSet.setSliceSpace(3f);
                     dataSet.setSelectionShift(5f);
@@ -441,7 +429,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
                     // undo all highlights
                     mChart.highlightValues(null);
                     mChart.setCenterText("What do people think about " + keyword + "?");
-                
+
                     mChart.getLegend().setEnabled(false);
                     mChart.invalidate();
 
@@ -470,12 +458,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
                 Toast.makeText(ResultsActivity.this, "No Results found. Please search another term, or check your internet connection.",
                         Toast.LENGTH_LONG).show();
                 Log.d("log", "error");
-                
+                Log.d("log", "error");
             }
         });
         jsonRequest.setTag(REQUEST_TAG);
-        //Setting the timeout so the app doesn't crash in case the search takes too long
-        int socketTimeout = 7000;//7 seconds - change to what you want
+        int socketTimeout = 5000;//5 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsonRequest.setRetryPolicy(policy);
         mQueue.add(jsonRequest);
@@ -530,6 +517,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnKeyList
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         return false;
     }
+
 
 
 }

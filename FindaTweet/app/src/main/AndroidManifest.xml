@@ -48,25 +48,9 @@
 
         </activity>
         <activity
-            android:name=".DetailedStatistics"
-            android:label="TreeTalk"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".Onboarding"
             android:label="@string/title_activity_onboarding"
             android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".SearchResultsActivity"
-            android:label="@string/title_activity_search_results"
-            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
         <activity android:name="com.google.android.gms.ads.AdActivity"
